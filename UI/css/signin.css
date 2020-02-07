@@ -3,7 +3,7 @@ body{
   padding: 0;
   font-family: "montserrat",sans-serif;
   background: url("../images/safe.jpg");
-  background-size:cover
+  background-size:cover;
 }
 .header{
   height: 100px;
