@@ -1,0 +1,526 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: "montserrat",sans-serif;
+    background: url("../images/safe.jpg");
+    background-size:cover
+  }
+  .header{
+    height: 100px;
+    padding: 0 20px;
+    color:#fff;
+  }
+  h2 a{
+    text-decoration: none;
+    color:white;
+  }
+  .logo{
+    line-height: 100px;
+    float: left;
+    margin-top: 10px;
+    text-transform:Uppercase;
+  }
+  .menu{
+    float: right;
+    line-height: 100px;
+  }
+  .img2 {
+    float: right;
+    line-height: 100px;
+    padding: 20px 10px 10px 0px;
+  }
+  .img2 ul{
+    list-style: none;
+  }
+  .img2 ul li{
+    background-color: rgba(0,0,0,0.1);
+    text-align: center;
+    line-height: 20px;
+    margin-left: 2%;
+    border-radius: 0px;
+  }
+  
+  .menu a{
+    color:#fff;
+    text-transform: Uppercase;
+    text-decoration: none;
+    padding: 10px 10px;
+  }
+  
+  .show-menu,.hide-menu{
+    transition: 0.4s;
+    font-size: 30px;
+    cursor: pointer;
+    display: none;
+  }
+  .menu a:hover,.show-menu:hover,.hide-menu:hover{
+    color: #3498db;
+  }
+  .show-menu{
+    float: right;
+  }
+  .show-menu i{
+    line-height: 100px;
+  }
+  #chk{
+    position: absolute;
+    visibility: hidden;
+    z-index: -111;
+  }
+  #para{margin-top:-43%}
+
+  #pop input{
+    display:none
+  }
+  #pop img{
+    margin:5% 0 5% 0;
+    width:120px;
+    height: 120px;
+    border-radius:50%
+  }
+
+  @media screen and (min-width:801px) {
+    .menu a{
+      padding: 10px;
+      margin: 0 5px;
+      border: 1px solid white;
+      color:white;
+      cursor: pointer;
+    }
+    .menu a:hover{
+      background:rgba(255, 0, 43, 0.397);
+      transition: 0.8;
+      color:white
+    }
+    .img2 ul li{
+      background: rgb(255, 255, 255, 0.7);
+      padding:15px 13px;
+      margin-top:20px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      outline: none;
+      font-size: 18px;
+      color: rgba(172, 3, 31, 0.986);
+    }
+    .img2 ul li:hover {
+      border:1px solid white;
+      background: transparent;
+      color: white;
+    }
+    .container {
+      width: 95%;
+      height:480px;
+      display: inline-flex;
+      border:1px solid white;
+      display:flex;
+      margin-left:2%
+    }
+    .sidebar{
+        width:25%;
+        height:480px;
+        background:rgb(255,255,255,0.3);
+        text-align: left;
+    }
+    .parent {
+        background: rgb(255,255,255,0.3);
+        width:75%;
+        height:470px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr ;
+        grid-gap: 2%;
+        margin: 0.3% 0 0 2%;
+        overflow-y: scroll;
+        }
+    .parent h3{
+        color:rgba(172, 3, 31, 0.986)
+    }
+    .parent div{
+        background: rgb(255, 255, 255);
+        height: 100%;
+        text-align: center;
+    }
+    .parent div img{
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: 10% 0 0 0%;
+    }
+    .parent div input[type="button"]{
+        padding: 13px;
+        background: rgb(248, 158, 55);
+        border:none;
+        border-bottom:2px solid rgba(250, 1, 1, 0.815);
+        cursor: pointer;
+        border-radius: 3px;
+        margin:0 2% 2% 0;
+        font-size:17px;
+        font-weight: bold;
+        outline:none
+    }
+    .parent div input[type="button"]:hover{
+        background:none;
+        transition: 0.5s;
+    }
+    .parent div input[type="submit"]{
+        padding:15px 18px;
+        background: rgba(250, 1, 1, 0.918);
+        border-radius:3px;
+        border:none;
+        border-bottom:2px solid black;
+        cursor: pointer;
+        font-size: 16px;
+        color:white;
+        outline:none;
+        margin:0 0 2% 2%;
+    }
+    .parent div input[type="submit"]:hover{
+        background:transparent;
+        transition: 0.5s;
+        color:black;
+        font-weight: bold;
+    }
+    .sidebar ul li{
+        list-style: none;
+        color:white;
+        padding:20px 30px;
+        width:100%;
+        margin-left:-5%;
+        font-size:20px;
+        font-weight: bold
+    }
+    .sidebar a{
+        text-decoration: none;
+        color:white
+    }
+    .sidebar a:hover{
+        color:rgb(167, 4, 4);
+        transition: 0.6s;
+    }
+    .footer {
+      font-weight:bold;
+      font-size: px;
+      box-shadow: 2px 2px 2px 2px black;
+      width: 100%;
+      height: 50px;
+      color:white;
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+    }
+  }
+  @media screen and (max-width:500px) {
+    body{ 
+      background:url('../images/safe\ \(2\).jpg');
+      background-size: cover;
+      height:100%
+    }
+    .show-menu,.hide-menu{
+      display: block;
+    }
+    .menu{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #333;
+      right: -100%;
+      top: 0;
+      text-align: center;
+      padding: 10px 0;
+      line-height: normal;
+      transition: 0.5s;
+    }
+    .menu a{
+      display: block;
+      padding:10px;
+      padding: 15px;
+      margin: 5px 5px;
+      border: 1px solid white;
+      color:white;
+      cursor: pointer;
+    }
+    .menu a:hover{
+      background:rgba(255, 0, 43, 0.397);
+      transition: 0.8;
+      color:white
+    }
+    #chk:checked ~.menu {
+      right:0;
+    }
+    
+    .img2 ul li{
+      background: rgb(255, 255, 255, 0.7);
+      padding:10px 8px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      outline: none;
+      font-size: 18px;
+      color: rgba(172, 3, 31, 0.986);
+    }
+    .img2 ul li:hover {
+      border:1px solid white;
+      background: transparent;
+      color: white;
+    }
+    .container {
+        width: 95%;
+        height:250px;
+        display: inline-flex;
+        border:1px solid white;
+        display:grid;
+        margin-left:2%
+      }
+      .sidebar{
+          width:100%;
+          height:250px;
+          background:rgb(255,255,255,0.3);
+          text-align: left;
+      }
+      .parent {
+          background: rgb(255,255,255,0.3);
+          width:95%;
+          height:500px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr 1fr ;
+          grid-gap: 2%;
+          margin: -20% 0 0 2%;
+          overflow-y: scroll;
+          }
+      .parent h3{
+          color:rgba(250, 1, 1, 0.719)
+      }
+      .parent div{
+          background: rgb(255, 255, 255);
+          height: 100%;
+          text-align: center;
+      }
+      .parent div img{
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          margin: 10% 0 0 0%;
+      }
+      .parent div input[type="button"]{
+          padding: 15px;
+          background: rgb(248, 158, 55);
+          border:none;
+          border-bottom:2px solid rgb(250, 1, 1);
+          cursor: pointer;
+          border-radius: 3px;
+          font-weight: bold;
+          margin:0 2% 2% 0;
+          outline:none
+      }
+      .parent div input[type="button"]:hover{
+          background:none;
+          transition: 0.5s;
+      }
+      .parent div input[type="submit"]{
+          padding:15px 18px;
+          background: rgb(250, 1, 1);
+          border-radius: 3px;
+          border:none;
+          font-weight: bold;
+          border-bottom:2px solid black;
+          cursor: pointer;
+          outline:none;
+          margin:0 0 2% 2%;
+      }
+      .parent div input[type="submit"]:hover{
+          background:transparent;
+          transition: 0.5s;
+      }
+      .sidebar ul li{
+          list-style: none;
+          color:white;
+          padding:10px 30px;
+          width:100%;
+          margin-left:-5%;
+          font-size:15px;
+          font-weight: bold
+      }
+      .sidebar a{
+          text-decoration: none;
+          color:white
+      }
+      .sidebar a:hover{
+          color:rgb(167, 4, 4);
+          transition: 0.6s;
+      }
+    .footer {
+      font-weight:bold;
+      font-size: 10px;
+      color:rgb(255, 158, 13);
+      background:white;
+      box-shadow: 2px 2px 2px 2px black;
+      width: 100%;
+      height: 50px;
+      position: fixed;
+      bottom:0
+    }
+    .footer p{
+      text-align: center;
+    }
+  }
+  @media screen and (min-width:501px) and (max-width:800px) {
+    body{ 
+      background:url('../images/safe\ \(2\).jpg');
+      background-size: cover;
+      background-position: initial;
+      height:100%
+    }
+    .show-menu,.hide-menu{
+      display: block;
+    }
+    .menu{
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background-color: #333;
+      right: -100%;
+      top: 0;
+      text-align: center;
+      padding: 10px 0;
+      line-height: normal;
+      transition: 0.5s;
+    }
+    .menu a{
+      display: block;
+      padding: 15px;
+      margin: 15px 5px;
+      color:white;
+      cursor: pointer;
+    }
+    .menu a:hover{
+      background:rgba(255, 0, 43, 0.397);
+      transition: 0.8;
+      color:white
+    }
+    #chk:checked ~.menu {
+      right:0;
+    }
+    
+    .img2 ul li{
+      background: rgb(255, 255, 255, 0.7);
+      padding:10px 8px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      outline: none;
+      font-size: 18px;
+      color: rgba(172, 3, 31, 0.986);
+    }
+    .img2 ul li:hover {
+      border:1px solid white;
+      background: transparent;
+      color: white;
+    }
+    .container {
+        width: 95%;
+        height:480px;
+        display: inline-flex;
+        border:1px solid white;
+        display:flex;
+        margin:1%
+      }
+      .sidebar{
+          width:30%;
+          height:480px;
+          background:rgb(255,255,255,0.3);
+          text-align: left;
+      }
+      .parent {
+          background: rgb(255,255,255,0.3);
+          width:75%;
+          height:470px;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr 1fr ;
+          grid-gap: 2%;
+          margin: 0.3% 0 0 1%;
+          overflow-y: scroll;
+          }
+      .parent h3{
+          color:rgba(250, 1, 1, 0.719)
+      }
+      .parent div{
+          background: rgb(255, 255, 255);
+          height: 100%;
+          text-align: center;
+      }
+      .parent div img{
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          margin: 10% 0 0 0%;
+      }
+      .parent div input[type="button"]{
+          padding: 15px;
+          background: rgb(248, 158, 55);
+          border:none;
+          border-bottom:2px solid rgba(250, 1, 1, 0.911);
+          cursor: pointer;
+          font-weight: bold;
+          border-radius: 3px;
+          margin:0 2% 2% 0;
+          outline:none
+      }
+      .parent div input[type="button"]:hover{
+          background:none;
+          transition: 0.5s;
+      }
+      .parent div input[type="submit"]{
+          padding:15px 18px;
+          background: rgba(250, 1, 1, 0.911);
+          border-radius: 3px;
+          border:none;
+          border-bottom:2px solid black;
+          cursor: pointer;
+          font-weight: bold;
+          outline:none;
+          margin:0 0 2% 2%;
+      }
+      .parent div input[type="submit"]:hover{
+          background:transparent;
+          transition: 0.5s;
+      }
+      .sidebar ul li{
+          list-style: none;
+          color:white;
+          padding:20px 30px;
+          width:100%;
+          margin-left:-5%;
+          font-size:15px;
+          font-weight: bold
+      }
+      .sidebar a{
+          text-decoration: none;
+          color:white;
+          float:left
+      }
+      .sidebar ul{
+        margin-left:-20%;
+      }
+      .sidebar a:hover{
+          color:rgb(167, 4, 4);
+          transition: 0.6s;
+      }
+    .footer {
+      font-weight:bold;
+      font-size: 10px;
+      color:rgb(255, 158, 13);
+      background:white;
+      box-shadow: 2px 2px 2px 2px black;
+      width: 100%;
+      height: 50px;
+      position: fixed;
+      bottom:0
+    }
+    .footer p{
+      text-align: center;
+    }
+  }
+  
