@@ -1,13 +1,13 @@
 # **Papel**
 
-Papel is A Banking Company
-
-## **Project description**
-
 Papel is a light-weight core banking application that powers banking operations like account
 creation, customer deposits, and withdrawals. This app is meant to support a single bank, where
 users can signup and create bank accounts online, but must visit the branch to withdraw or
 deposit money.
+
+## **UI Templates**
+
+[https://kabundege.github.io/Papel/](https://kabundege.github.io/Papel/)
 
 
 ## **UI Required features**
@@ -25,17 +25,12 @@ deposit money.
 
 ## **Clone the project**
 
-    - git clone https://github.com/kabundege/Papel
-    - cd / Papel
+    - git clone https://github.com/kabundege/Papel.git
+    - cd /Papel
 
 ## **Pivotal Tracker Stories**
 
 [https://www.pivotaltracker.com/n/projects/2432290](https://www.pivotaltracker.com/n/projects/2432290)
-
-## **UI Files**
-
-[https://kabundege.github.io/Papel/](https://kabundege.github.io/Papel/)
-
 
 # **Author**
 

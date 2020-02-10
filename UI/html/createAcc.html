@@ -1,66 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Dashborad</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
-    <meta name="viewport" content= "width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/create.css">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.6.1/css/all.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/create.css" />
     <script src="../js/admin.js"></script>
   </head>
   <body>
     <div class="header">
-        <h2 class="logo"><a href="../../index.html">Papel</a></h2>
-        <input type="checkbox" id="chk">
-        <label for="chk" class="show-menu">
-          <i class="fas fa-ellipsis-h"></i>
-        </label>
-        <div class="img2">
-          <ul>
-            <li onclick="logout()">LogOut</li>
-          </ul>
-        </div>
-        <ul class="menu">
-          <a href="#" style="background:rgba(255, 0, 43, 0.397);">Home</a>
-          <a href="#">Students</a>
-          <a href="#">Loans</a>
-          <a href="#">Aboutus</a>
-          <label for="chk" class="hide-menu">
-            <i class="fas fa-times"></i>
-          </label>
+      <h2 class="logo"><a href="../../index.html">Papel</a></h2>
+      <input type="checkbox" id="chk" />
+      <label for="chk" class="show-menu">
+        <i class="fas fa-ellipsis-h"></i>
+      </label>
+      <div class="img2">
+        <ul>
+          <li onclick="logout()">LOGOUT</li>
         </ul>
+      </div>
+      <ul class="menu">
+        <a href="#" style="background:rgba(255, 0, 43, 0.397);">Home</a>
+        <a href="#">Aboutus</a>
+        <label for="chk" class="hide-menu">
+          <i class="fas fa-times"></i>
+        </label>
+      </ul>
     </div>
     <div class="container">
-        <div class="sidebar">
-            <img src="../images/img5.jpg" alt="user">
-            <ul>
-                <li><a href="../html/dashboard.html">DASHBOARD</a></li>
-                <hr>
-                <li><a href="#" style="color: rgba(172, 3, 31, 0.986);">CREATE AN ACCOUNT</a></li>
-                <hr>
-                <li><a href="#">SETTINGS</a></li>
-            </ul>
-        </div>
-        <div class="parent">
-            <h2>NEW BANK ACCOUNT</h2>
-            <label>Firstname :</label>
-            <input type="text" placeholder="Enter here..." name="username">
-            <label >Lastname :</label>
-            <input type="text" placeholder="Enter here..." name="username">
-            <label >Email :</label>
-            <input type="text" placeholder="Enter here..." name="email">
-            <label >Account Type :</label>
-            <select name="AccType">
-                <option value="1" selected>Saving Account</option>
-                <option value="2">Current Account</option>
-            </select>
-            <label >Opening Balance</label>
-            <input type="number" name="amount" placeholder="USD $">
-            <input type="button" value="Create Account">
-        </div>
+      <div class="sidebar">
+        <img src="../images/img5.jpg" alt="user" />
+        <ul>
+          <li><a href="../html/dashboard.html">TRANSACTIONS</a></li>
+          <hr />
+          <li>
+            <a href="#" style="color: rgba(172, 3, 31, 0.986);"
+              >CREATE AN ACCOUNT</a
+            >
+          </li>
+          <hr />
+          <li><a href="#">SETTINGS</a></li>
+        </ul>
+      </div>
+      <div class="parent">
+        <h2>NEW BANK ACCOUNT</h2>
+        <label>Firstname :</label>
+        <input type="text" placeholder="Enter here..." name="username" required/>
+        <label>Lastname :</label>
+        <input type="text" placeholder="Enter here..." name="username"required/>
+        <label>Email :</label>
+        <input type="email" placeholder="Email ..." name="email" required/>
+        <label>Account Type :</label>
+        <select name="AccType">
+          <option value="1" selected>Saving Account</option>
+          <option value="2">Current Account</option>
+        </select>
+        <label>Opening Balance</label>
+        <input type="number" placeholder="0$" readonly style="text-align: center;"/>
+        <input type="button" value="Create Account" />
+      </div>
     </div>
     <div class="footer">
-        <p>&copy;copyright2020</p>
+      <p>&copy;copyright2020</p>
     </div>
   </body>
 </html>
