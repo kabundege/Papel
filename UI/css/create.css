@@ -13,6 +13,7 @@ body{
   h2 a{
     text-decoration: none;
     color:white;
+    font-size: 30px;
   }
   .logo{
     line-height: 100px;
@@ -39,7 +40,6 @@ body{
     margin-left: 2%;
     border-radius: 0px;
   }
-  
   .menu a{
     color:#fff;
     text-transform: Uppercase;
@@ -69,6 +69,10 @@ body{
   }
   
   @media screen and (min-width:801px) {
+    .menu{
+      position: absolute;
+      left:72.5%;
+    }
     .menu a{
       padding: 10px;
       margin: 0 5px;
@@ -81,21 +85,22 @@ body{
       transition: 0.8;
       color:white
     }
-    .img2 ul li{
-      background: rgb(255, 255, 255, 0.7);
-      padding:15px 13px;
-      margin-top:20px;
+    .img2 ul li {
+      background:  transparent;
+      padding: 3px 5px;
       border: none;
-      border-radius: 2px;
+      line-height:32px;
+      margin: 34% 3% 0% -40%;      border-radius: 2px;
       cursor: pointer;
       outline: none;
-      font-size: 18px;
-      color: rgba(172, 3, 31, 0.986);
+      font-size: 15px;
+      color: white;
+      border:1px solid white;
     }
     .img2 ul li:hover {
-      border:1px solid white;
-      background: transparent;
-      color: white;
+      background: rgba(255, 255, 255, 0.623);
+      font-weight: bold;
+      color:rgba(255, 0, 43, 0.705)
     }
     .container {
       width: 95%;
@@ -164,7 +169,8 @@ body{
       margin: 10% 0 0 0%;
   }
     .parent input[type="button"]{
-        padding: 15px;
+        padding:10 px 15px;
+        line-height: -30px;
         width:15%;
         color:white;
         font-weight: bold;
@@ -254,7 +260,7 @@ body{
     }
     
     .img2 ul li{
-      background: rgb(255, 255, 255, 0.7);
+      background: rgba(201, 201, 201, 0.7);
       padding:10px 8px;
       border: none;
       border-radius: 2px;

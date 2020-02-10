@@ -7,6 +7,7 @@
     <meta name="viewport" content= "width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/dashboard.css">
     <script src="../js/admin.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   </head>
   <body>
     <div class="header">
@@ -15,26 +16,27 @@
         <label for="chk" class="show-menu">
           <i class="fas fa-ellipsis-h"></i>
         </label>
-        <div class="img2">
-          <ul>
-            <li onclick="logout()">LogOut</li>
-          </ul>
-        </div>
         <ul class="menu">
           <a href="#" style="background:rgba(255, 0, 43, 0.397);">Home</a>
-          <a href="#">Students</a>
-          <a href="#">Loans</a>
           <a href="#">Aboutus</a>
           <label for="chk" class="hide-menu">
             <i class="fas fa-times"></i>
           </label>
         </ul>
+        <div class="img2">
+          <ul>
+            <li onclick="logout()">LOGOUT</li>
+          </ul>
+        </div>
+    </div>
+    <div class="search">
+    <input type="text" placeholder="Search here...."><i class="fas fa-search"></i>
     </div>
     <div class="container">
         <div class="sidebar">
             <img src="../images/img5.jpg" alt="user">
             <ul>
-                <li><a href="#" style="color: rgba(172, 3, 31, 0.986);">DASHBOARD</a></li>
+                <li><a href="#" style="color: rgba(172, 3, 31, 0.986);">TRANSACTIONS</a></li>
                 <hr>
                 <li><a href="../html/createAcc.html" style="margin-bottom: 10px;">CREATE AN ACCOUNT</a></li>
                 <hr>
@@ -47,72 +49,72 @@
                 <h6>Description : this Desposit is from BRD</h6>
                 <h4>Cashier : Josiane</h4>
                 <h5>Amount :890,000 rwf</h5>
-                <input type="submit" id="div1" value="view" onclick="create(this.id)">
-                <input type="submit" id="div1" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div1" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div1" onclick="remove(this.id)"></i>
             </div>
             <div class="div2">
                 <h3>DEBIT</h3>
                 <h6>Description : this withdraw was for transport</h6>
                 <h4>Cashier : Izedin</h4>
                 <h5>Amount : 300,000 rwf</h5>
-                <input type="submit" id="div2" value="view" onclick="create(this.id)">
-                <input type="submit" id="div2" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div2" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div2" onclick="remove(this.id)"></i>
             </div>
             <div class="div3">
                 <h3>DEBIT</h3>
                 <h6>Description : this withdraw was for Personal use</h6>
                 <h4>Cashier : Alphonse</h4>
                 <h5>Amount : 590,000 rwf</h5>
-                <input type="submit" id="div3" value="view" onclick="create(this.id)">
-                <input type="submit" id="div3" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div3" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div3" onclick="remove(this.id)"></i>
             </div>
             <div class="div4">
                 <h3>CREDIT</h3>
                 <h6>Description : this Deposit was from ALINE</h6>
                 <h4>Cashier : Clement</h4>
                 <h5>Amount : 225,000 rwf</h5>
-                <input type="submit" id="div4" value="view" onclick="create(this.id)">
-                <input type="submit" id="div4" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div4" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div4" onclick="remove(this.id)"></i>
             </div>
             <div class="div5">
                 <h3>DEBIT</h3>
                 <h6>Description : this withdraw Paid Tuition</h6>
                 <h4>Cashier : Philbert</h4>
                 <h5>Amount : 225,000 rwf</h5>
-                <input type="submit" id="div5" value="view" onclick="create(this.id)">
-                <input type="submit" id="div5" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div5" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div5" onclick="remove(this.id)"></i>
             </div>
             <div class="div6">
                 <h3>CREDIT</h3>
                 <h6>Description : this Deposite was from MTN</h6>
                 <h4>Cashier : Serge</h4>
                 <h5>Amount : 225,000 rwf</h5>
-                <input type="submit" id="div6" value="view" onclick="create(this.id)">
-                <input type="submit" id="div6" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div6" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div6" onclick="remove(this.id)"></i>
             </div>
             <div class="div7">
                 <h3>DEBIT</h3>
                 <h6>Description : this withdraw Paid Mango-4GLTE</h6>
                 <h4>Cashier : EVelyne</h4>
                 <h5>Amount : 22,000 rwf</h5>
-                <input type="submit" id="div7" value="view" onclick="create(this.id)">
-                <input type="submit" id="div7" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div7" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div7" onclick="remove(this.id)"></i>
             </div>
             <div class="div8">
                 <h3>CREDIT</h3>
                 <h6>Description : this deposite was from BRD</h6>
                 <h4>Cashier : Alphonse</h4>
                 <h5>Amount : 100,000 rwf</h5>
-                <input type="submit" id="div8" value="view" onclick="create(this.id)">
-                <input type="submit" id="div8" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div8" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div8" onclick="remove(this.id)"></i>
             </div>
             <div class="div9">
                 <h3>DEBIT</h3>
                 <h6>Description : this withdraw was for Tuition</h6>
                 <h4>Cashier : Slyvie</h4>
                 <h5>Amount : 720,000 rwf</h5>
-                <input type="submit" id="div9" value="view" onclick="create(this.id)">
-                <input type="submit" id="div9" value="Delete" onclick="remove(this.id)">
+                <i class="fas fa-eye" id="div9" onclick="create(this.id)"></i>
+                <i class="fas fa-trash" id="div9" onclick="remove(this.id)"></i>
             </div>
         </div>
     </div>

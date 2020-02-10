@@ -11,25 +11,33 @@
   <body>
     <div class="header">
       <h2 class="logo"><a href="#">Papel</a></h2>
+      <ul class="menu">
+        <a href="#" style="background:rgba(255, 0, 43, 0.397);">Home</a>
+        <a href="#">Aboutus</a>
+        <label for="chk" class="hide-menu">
+          <i class="fas fa-times"></i>
+        </label>
+      </ul>
       <div class="img2">
         <ul>
-          <li onclick="signin()">Login</li>
+          <li onclick="signin()">SIGNIN</li>
         </ul>
       </div>
     </div>
     <div class="container">
       <div class="readmore">
           <h1>Bank With Us</h1>
-          <h4>PAPEL AN EXCELLENT BANKING EXPERIENCE</h4>
+          <h4><span style="color: rgba(255, 255, 255, 0.849);font-size: 25P;">PAPEL</span> AN APPILCATION THAT POWERS BANKING OPERATIONS
+            <span style="color: WHITE;font-size: 25P;">|</span> INTRODUCING AN EXCELLENT BANKING EXPERIENCE</h4>
           <input type="button" value="Home" onclick="signin()">
       </div>
       <div class="login">
           <h1 style="color:rgba(129, 0, 22, 0.986)">SIGN-UP</h1 style="color:rgba(129, 0, 22, 0.986)">
-          <input type="text" placeholder="Firstame" name="Firstame">
-          <input type="text" placeholder="Lastname" name="Lastname">
-          <input type="text" placeholder="email" name="email">
-          <input type="password" placeholder="password" name="password">
-          <input type="password" placeholder="Confirm password" name="password">
+          <input type="text" placeholder="Firstame" name="Firstame" required> 
+          <input type="text" placeholder="Lastname" name="Lastname" required>
+          <input type="email" placeholder="email" name="email" required>
+          <input type="password" placeholder="password" name="password" required>
+          <input type="password" placeholder="Confirm password" name="password" required>
           <input type="button" value="Create Account" onclick="dash()">
       </div>
     </div>
