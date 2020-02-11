@@ -5,6 +5,7 @@
     <title>Dashborad</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <meta name="viewport" content= "width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <link rel="stylesheet" href="../css/transaction.css">
     <script src="../js/admin.js"></script>
   </head>
@@ -44,6 +45,9 @@
             <h2>NEW TRANSACTION</h2>
             <label >Account Number</label>
             <input type="text" placeholder="account number" name="number">
+            <label >Account owner</label>
+            <input type="text"  name="number" id="owner" readonly>
+            <i class="fas fa-search"></i>
             <label>Amount</label>
             <input type="text" placeholder="USD $" name="currency">
             <input type="button" value="Debit" >

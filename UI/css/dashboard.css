@@ -71,7 +71,14 @@ body{
   #pop i {
     display: none;
   }
+  .fa-eye:hover{
+    color: rgb(0, 59, 252);
+  }
+  .fa-trash:hover{
+    color: rgba(201, 1, 1, 0.904);
+  }
   @media screen and (min-width:801px) {
+    
     .search{
       float:right;
       margin:8% -7.5% 1% 0% 

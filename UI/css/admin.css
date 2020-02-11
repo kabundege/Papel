@@ -76,7 +76,7 @@ body{
     z-index: -111;
   }
   #para{
-    font-size:30px;
+    font-size:20px;
     cursor:pointer;
     margin-top:-67%;
     float:right;
@@ -104,14 +104,31 @@ body{
     height: 150px;
     border-radius:50%
   }
-
-
-
+  .fa-eye:hover{
+    color: rgb(0, 59, 252);
+  }
+  .fa-trash:hover{
+    color: rgba(201, 1, 1, 0.904);
+  }
+  .fa-user:hover{
+    color: rgb(25, 136, 25);
+  }
+  .fa-user-slash:hover{
+    color: rgb(184, 20, 102);
+  }
+  .fa-bed:hover{
+    color: rgb(202, 57, 0);
+  }
+  .fa-user-lock:hover{
+    color:rgb(103, 158, 20)
+  }
+  .fa-user-shield:hover{
+    color: rgb(155, 3, 3);
+  }
   @media screen and (min-width:801px) {
     .search{
       float:right;
-      width:30%;
-      margin-right: -315px;
+      margin:-1% -8% 0% 0%;
     }
     .search input{
       padding:10px;
@@ -122,11 +139,11 @@ body{
       outline:none;
     }
     .search i{
-      margin-left:-6%
+      margin:6% 10% 0 -10% 
     }
     .menu{
       position: absolute;
-      left:72.5%;
+      left:73%;
     }
     .menu a{
       padding: 10px;
@@ -161,7 +178,7 @@ body{
       width: 95%;
       height:480px;
       display: inline-flex;
-      margin-bottom:10%;
+      margin-bottom:5%;
       border:1px solid white;
       display:flex;
       margin-left:2%

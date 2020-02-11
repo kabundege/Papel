@@ -113,6 +113,12 @@ body{
   #pop h5{
     font-size:20px
   } 
+  .fa-eye:hover{
+    color: rgb(0, 59, 252);
+  }
+  .fa-trash:hover{
+    color: rgba(201, 1, 1, 0.904);
+  }
   @media screen and (min-width:801px) {
     .menu{
       position: absolute;
@@ -179,7 +185,7 @@ body{
     }
     .parent input{
         padding: 0px 10px;
-        margin:-7.3% 0 0 35%;
+        margin:-6% 0 0 35%;
         width:50%;
         height: 40px;
         font-size: 15px;
@@ -190,12 +196,18 @@ body{
     }
     .parent input[name="currency"]{
         height: 40px;
-        margin:-7.3% 0 0 35%;
-        width:10%;
+        margin:-6% 0 0 35%;
+        width:23%;
         font-size: 18px;
         outline: none;
     }
-    
+    #owner{
+      width:40%
+    }
+    .parent i{
+      margin:-7% -50% 0% 0%;
+      cursor: pointer;
+    }
     .sidebar{
       text-align:center;
   }
@@ -206,7 +218,7 @@ body{
       margin: 10% 0 0 0%;
   }
     .parent input[type="button"]{
-        width:15%;
+        width:10%;
         color:white;
         font-weight: bold;
         background:rgba(250, 1, 1, 0.822);
@@ -223,14 +235,14 @@ body{
         transition: 0.5s;
     }
     .parent input[type="submit"]{
-        width:15%;
+        width:10%;
         color:rgb(250, 1, 1);
         font-weight: bold;
         background:rgba(255, 255, 255, 0.822);
         border-bottom:2px solid rgb(250, 1, 1);
         cursor: pointer;
         border-radius: 3px;
-        margin:-8.5% 0% 0% 55%;
+        margin:-6.8% 0% 0% 50%;
         outline:none
     }
     .parent input[type="submit"]:hover{
