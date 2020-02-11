@@ -14,7 +14,7 @@ h2 a {
   text-decoration: none;
   color: white;
   font-size: 30px;
-  margin-left:15%
+  margin-left: 15%;
 }
 .logo {
   line-height: 100px;
@@ -71,7 +71,10 @@ h2 a {
   visibility: hidden;
   z-index: -111;
 }
-
+.parent p {
+  margin-top: -1.5%;
+  font-weight: bold;
+}
 @media screen and (min-width: 801px) {
   .menu a {
     padding: 15px;
@@ -158,9 +161,8 @@ h2 a {
   }
   .readmore h4 {
     color: rgba(129, 0, 22, 0.986);
-    font-size:19px
+    font-size: 19px;
   }
-
   .readmore input {
     padding: 15px 25px;
     margin-top: 10%;
@@ -304,7 +306,7 @@ h2 a {
     font-weight: bold;
     border-bottom: 3px solid rgba(129, 0, 22, 0.986);
     cursor: pointer;
-    outline:none
+    outline: none;
   }
   .readmore input:hover {
     background: rgb(255, 255, 255, 0.3);
@@ -440,7 +442,7 @@ h2 a {
     font-weight: bold;
     border-bottom: 3px solid rgba(129, 0, 22, 0.986);
     cursor: pointer;
-    outline:none
+    outline: none;
   }
   .readmore input:hover {
     background: rgb(255, 255, 255, 0.3);
