@@ -95,6 +95,5 @@ deposit money.
 
 [https://www.pivotaltracker.com/n/projects/2432290](https://www.pivotaltracker.com/n/projects/2432290)
 
-# **Author**
-
-## **Kabundege Kwizera Christophe**
+## **Author**
+# *Kabundege Kwizera Christophe*
