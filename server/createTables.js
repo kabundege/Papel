@@ -1,4 +1,4 @@
-import pool from "../config/dbConfig";
+import pool from "./config/dbConfig";
 
 const table = `DROP TABLE IF EXISTS users,transactions,accounts CASCADE;
     CREATE TABLE users (
@@ -34,10 +34,12 @@ const table = `DROP TABLE IF EXISTS users,transactions,accounts CASCADE;
 const createTable = async () => {
   try {
     await pool.query(table);
-    process.stdout.write(' table created');
+    console.log(' table created');
   } catch (err) {
-    process.stdout.write(err);
+    console.log(err);
   }
 };
 
 createTable();
+
+export default createTable;

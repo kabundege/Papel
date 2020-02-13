@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run table && babel-watch server.js",
-    "test": "npm run table && nyc  --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/*.js --exit",
-    "test:remote": "npm run table && nyc mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/*.js --exit",
-    "dev": "NODE_ENV=development nodemon --exec babel-node ./Server/index.js",
+    "test": "npm run table && nyc  --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill --timeout 100000 ./server/tests/*.js --exit",
+    "test:remote": "npm run table && nyc mocha --require @babel/register --require @babel/polyfill --timeout 100000 ./server/tests/*.js --exit",
+    "dev": "NODE_ENV=development nodemon --exec babel-node ./server/index.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "table": "babel-node ./Server/models/createTables.js"
+    "table": "babel-node ./server/createTables.js"
   },
   "keywords": [],
   "author": "",
