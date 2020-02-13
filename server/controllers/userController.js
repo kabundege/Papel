@@ -35,4 +35,28 @@ export default class userController {
       }
     }
   }
+  static async signin(req, res) {
+    const { email, password } = req.body;
+      const loginUser = await Methods.select("*", "users", `email='${email}'`);
+      if (!loginUser['0']) {
+        responseHandler.error(404, new Error("incorrect credentials"));
+        return responseHandler.send(res);
+      }
+      
+      if (!await bcrypt.compare(password,loginUser['0'].password)) {
+        responseHandler.error(400, new Error("incorrect credentials"));
+        return responseHandler.send(res);
+      }
+      const token = tokenProvider({
+        userid: loginUser['0'].userid
+      });
+      responseHandler.successful(200, "User logged in successfully", {
+        token,
+        id: loginUser["0"].userid,
+        firstName: loginUser["0"].firstname,
+        lastName: loginUser["0"].lastname,
+        email: loginUser["0"].email
+      });
+      return responseHandler.send(res);
+  }
 }
