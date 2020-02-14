@@ -1,9 +1,5 @@
 # **Papel**
-[![Build Status](https://travis-ci.org/kabundege/Papel.svg?branch=develop)](https://travis-ci.org/kabundege/Papel)
-
-[![Coverage Status](https://coveralls.io/repos/github/kabundege/Papel/badge.svg?branch=develop)](https://coveralls.io/github/kabundege/Papel?branch=develop)
-
-[![Maintainability](https://api.codeclimate.com/v1/badges/a7e35ba5f19cad3dca80/maintainability)](https://codeclimate.com/github/kabundege/Papel/maintainability)
+[![Build Status](https://travis-ci.org/kabundege/Papel.svg?branch=develop)](https://travis-ci.org/kabundege/Papel) [![Coverage Status](https://coveralls.io/repos/github/kabundege/Papel/badge.svg?branch=develop)](https://coveralls.io/github/kabundege/Papel?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/a7e35ba5f19cad3dca80/maintainability)](https://codeclimate.com/github/kabundege/Papel/maintainability)
 
 #**Project Description**
 
@@ -46,50 +42,46 @@ deposit money.
 
 [Visual studio code](https://code.visualstudio.com/download) for editing and running the app
 
-## **Clone the project**
+### PROJECT SETUP
+First you need to clone it to your machine:
+```
+https://github.com/kabundege/Papel.git
+```
+Open it using your favorite IDE
+I used ([vs code](https://code.visualstudio.com/download))
 
-    - git clone https://github.com/kabundege/Papel.git
-    - cd /Papel
-    - npm install (to install required dependencies)
-    - npm start (to start the development server)
+Install all necessary node modules
+```
+npm install
+```
+To start the app
+```
+npm start
+```
+To run tests
+```
+npm test
+```
 
-## **Testing**
+### API ENDPOINTS
+| API | Methods  | Description  |
+| ------- | --- | --- |
+`/` | GET | introduction |
+| `/api/v1/auth/signup` | POST | user signup |
+| `/api/v1/auth/login` | POST | user login |
+| `/api/v1/accounts` | POST | create account |
+| `/api/v1/account/<accountNo>` | POST | activate or deactivate account |
+| `/api/v1/accounts` | GET | display all bank accounts |
+| `/api/v1/accounts/<accountNo>` | GET | display a specific account |
+| `/api/v1/account/<accountNo>` | DELETE | delete an account |
+| `/api/v1/transactions/<accountNo>/debit` | POST | debit a bank account |
+| `/api/v1/transactions/<accountNo>/credit` | POST | credit a bank account |
+| `/api/v1/accounts/:accountNo/transactions` | GET | display a specific account transaction history |
+| `/api/v1/transactions/:transactionId` | GET | display a specific transaction details |
 
-    - npm  test
 
-## **API endpoints**
-`- POST api/v1/auth/signin - User Signin`
-
-`- POST api/v1/auth/signup - User to create an account`
-
-`- POST api/v1/accounts - User can create a Bank account`
-
-`- PATCH api/v1//account/<account-number> - admin can activate or deactivate a Bank account`
-
-`-DELETE api/v1/accounts/<account-number> -
- Admin can delete a Bank account`;
-
-`-Post api/v1/transactions/<account-number>/debit - a Cashier can Debit an account`;
-
-`-post api/v1/transactions/<account-number>/credit - a Cashier can credit an account`
-
-`-GET /accounts?status=dormant -  
- Admin can view all dormant accounts`
-
-`-GET /accounts?status=active - 
- Admin can view all active accounts`
-
-`-GET api/v1/accounts - Admin/staff can view all bank account`
-
-`-GET api/v1 /accounts/<account-number> - Admin/staff can view a specific bank account`
-
-`-GET api/v1/user/<user-email-address>/accounts - Admin/staff can get all account owned by one user`
-
-`-GET api/v1/transactions/<transaction-id> - 
- get a specific transaction `
-
-`- GET accounts/<account-number>/transactionsAdmin/ - Staff can view transaction made by one user;
-`
+### How can it be manually tested
+- Using [postman](https://www.getpostman.com/downloads/)
 
 ## **Pivotal Tracker Stories**
 

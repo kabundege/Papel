@@ -16,4 +16,11 @@ export default class UserValidator {
     });
     return schema.validate(user, { abortEarly: false });
   }
+  static signin(user) {
+    const schema = Joi.object().keys({
+      email: Joi.string().email().required().trim(),
+      password: Joi.string().required().trim()
+    });
+    return schema.validate(user, { abortEarly: false });
+  }
 }
