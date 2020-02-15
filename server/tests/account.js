@@ -135,6 +135,17 @@ describe('Accounts Test', () => {
       });
   });
 
+  it('it should No accounts found ', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+  });
+
   it('it should Accounts created', (done) => {
     const newAcc = {
       openingbalance: 897657,
@@ -182,7 +193,7 @@ describe('Accounts Test', () => {
         done();
       });
   });
-  //GETTING AN ACCOUNT BY EMAIL
+
   it('it should return invalid Email ', (done) => {
     chai
       .request(app)
@@ -270,4 +281,27 @@ describe('Accounts Test', () => {
         done();
       });
   });
+
+  it('it should No Access', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts')
+      .set('token',token)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        done();
+      });
+  });
+
+  it('it should ALL Accounts ', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  }); 
+
 });
