@@ -12,4 +12,6 @@ route.post("/api/v1/auth/signin", userValidation.signin, userController.signin);
 
 route.post("/api/v1/account",auth.access,accountValidation.createAcc, userController.createAcc);
 
+route.get("/api/v1/user/:email/accounts",auth.access, userController.AllAcc);
+
 export default route;

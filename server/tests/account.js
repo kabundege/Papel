@@ -10,6 +10,7 @@ chai.use(chaiHttp);
 describe('Accounts Test', () => {
   let token;
   let token2;
+  let oldToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiIxZjZkMGJlNS0xOTFiLTRhMTItOGMzOC01ODJhZjA0NjBmODgiLCJpYXQiOjE1ODE4MDI2MDJ9.8-IGTb-E62kIxdT-L7RGgZTI923MU7kHoNbwPjNwQcs';
   it('it should return account created', (done) => {
     const newUser = {
       firstname: 'John',
@@ -178,6 +179,94 @@ describe('Accounts Test', () => {
       .send(newAcc)
       .end((err, res) => {
         expect(res.statusCode).to.equal(401);
+        done();
+      });
+  });
+  //GETTING AN ACCOUNT BY EMAIL
+  it('it should return invalid Email ', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/user/isacgmailcom/accounts')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        done();
+      });
+  });
+
+  it('it should return Email not found', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/user/isac@gmail.com/accounts')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+  });
+
+  it('it should return Email not found', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/user/john@gmail.com/accounts')
+      .set('tok',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(401);
+        done();
+      });
+  });
+
+  it('it should return token error', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/user/john@gmail.com/accounts')
+      .set('token','sdfghjhgf')
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(401);
+        done();
+      });
+  });
+
+  it('it should return No Accounts Found on the Email', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/user/christophe@gmail.com/accounts')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+  });
+
+  it('it should return no access', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/user/kwizera@gmail.com/accounts')
+      .set('token',token)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        done();
+      });
+  });
+
+  it('it should return no access', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/user/kwizera@gmail.com/accounts')
+      .set('token',oldToken)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(401);
+        done();
+      });
+  });
+
+  it('it should Email accounts', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/user/kwizera@gmail.com/accounts')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
         done();
       });
   });

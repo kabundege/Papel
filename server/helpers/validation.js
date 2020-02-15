@@ -11,7 +11,7 @@ export default class UserValidator {
         .regex(/^[a-zA-Z]+$/),
       email: Joi.string().email().required().trim(),
       password: Joi.string().required().min(5).trim(),
-      type:  Joi.string().trim(),
+      type:  Joi.string().trim().default('client'),
       isadmin:  Joi.boolean().strict().default(false)
     });
     return schema.validate(user, { abortEarly: false });
