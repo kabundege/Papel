@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import uuidv4 from 'uuid/v4';
 import random from 'random-int';
+import emailValidator from 'email-validator'
 import tokenProvider from '../helpers/tokenProvider';
 import responseHandler from '../helpers/responseHandler';
 import Methods from '../helpers/dbMethods';
@@ -65,13 +66,7 @@ export default class userController {
 
   static async createAcc(req, res) {
     const { openingbalance, type } = req.body;
-    let accnumber;
-    while(1){
-      accnumber = random(10000000,1000000000)
-      let acc = await Methods.select('*','accounts',`accountNumber='${accnumber}'`);
-      if(!acc['0'])
-      break;
-    }
+    let accnumber = random(10000000,1000000000)
     const accid = uuidv4();
       if(type!=='saving'&&type!=='current'){
         responseHandler.error(400,new Error('the  type must be saving or current'))
@@ -93,5 +88,30 @@ export default class userController {
         openingbalance: newAcc.balance
       });
       return responseHandler.send(res);
+  }
+
+  static async AllAcc(req,res){
+    let email = req.params.email;
+    let  author = await Methods.select('*','users',`userid='${req.user.userid}'`);
+    if(!author['0'].isadmin&&!author['0'].type!=="staff"){
+      responseHandler.error(403,new Error('No Access'))
+      return responseHandler.send(res)
+    }
+      if(!emailValidator.validate(email)){
+        responseHandler.error(400, new Error("Invalid email type"));
+        return responseHandler.send(res);
+      }
+      const user = await Methods.select('*','users',`email='${email}'`);
+      if(!user['0']){
+        responseHandler.error(404, new Error("Email not Found"));
+        return responseHandler.send(res);
+      }
+      const Acc = await Methods.select('*','accounts',`owner='${user['0'].userid}'`);
+      if(!Acc['0']){
+        responseHandler.error(404, new Error("No Account Found"));
+        return responseHandler.send(res);
+      }
+      responseHandler.successful(200,"Account Fetch successful",{data : Acc});
+        return responseHandler.send(res);
   }
 }
