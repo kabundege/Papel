@@ -16,6 +16,7 @@ export default class UserValidator {
     });
     return schema.validate(user, { abortEarly: false });
   }
+
   static signin(user) {
     const schema = Joi.object().keys({
       email: Joi.string().email().required().trim(),
@@ -23,4 +24,13 @@ export default class UserValidator {
     });
     return schema.validate(user, { abortEarly: false });
   }
+
+  static createAcc(user) {
+    const schema = Joi.object().keys({
+      type: Joi.string().required().trim(),
+      openingbalance: Joi.number().required()
+    });
+    return schema.validate(user, { abortEarly: false });
+  }
+  
 }
