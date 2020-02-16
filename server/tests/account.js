@@ -350,4 +350,99 @@ describe('Accounts Test', () => {
       });
   });
 
+  it('it should return No access', (done) => {
+    const payload = {
+      status: "active"
+    }
+    chai
+      .request(app)
+      .patch(`/api/v1/account/${accountNumber}`)
+      .set('token',token)
+      .send(payload)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        done();
+      });
+  });
+
+  it('it should return body validation', (done) => {
+    const payload = {
+
+    };
+    chai
+      .request(app)
+      .patch(`/api/v1/account/${accountNumber}`)
+      .set('token',token2)
+      .send(payload)
+      .end((err, res) => {
+        console.log(err)
+        expect(res.statusCode).to.equal(400);
+        done();
+      });
+  });
+
+  it('it should return Invalid Params', (done) => {
+    const payload = {
+      status: "active"
+    };
+    chai
+      .request(app)
+      .patch('/api/v1/account/4dfgh56')
+      .set('token',token2)
+      .send(payload)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        done();
+      });
+  });
+
+  it('it should return input error', (done) => {
+    
+    const payload = {
+      status: "sdfgh"
+    };
+
+    chai
+      .request(app)
+      .patch(`/api/v1/account/${accountNumber}`)
+      .set('token',token2)
+      .send(payload)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        done();
+      });
+  });
+
+  it('it should return account not found', (done) => {
+    
+    const payload = {
+      status: "active"
+    }
+
+    chai
+      .request(app)
+      .patch('/api/v1/account/9843')
+      .set('token',token2)
+      .send(payload)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+  });
+
+  it('it should return Done successfuly', (done) => {
+    const payload = {
+      status: "active"
+    }
+    chai
+      .request(app)
+      .patch(`/api/v1/account/${accountNumber}`)
+      .set('token',token2)
+      .send(payload)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
+
 });
