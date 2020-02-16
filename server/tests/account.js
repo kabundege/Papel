@@ -10,6 +10,7 @@ chai.use(chaiHttp);
 describe('Accounts Test', () => {
   let token;
   let token2;
+  let accountNumber;
   let oldToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiIxZjZkMGJlNS0xOTFiLTRhMTItOGMzOC01ODJhZjA0NjBmODgiLCJpYXQiOjE1ODE4MDI2MDJ9.8-IGTb-E62kIxdT-L7RGgZTI923MU7kHoNbwPjNwQcs';
   it('it should return account created', (done) => {
     const newUser = {
@@ -157,6 +158,7 @@ describe('Accounts Test', () => {
       .set('token',token2)
       .send(newAcc)
       .end((err, res) => {
+      accountNumber=res.body.data.accountnumber
         expect(res.statusCode).to.equal(201);
         done();
       });
@@ -302,6 +304,50 @@ describe('Accounts Test', () => {
         expect(res.statusCode).to.equal(200);
         done();
       });
-  }); 
+  });
+  
+  it('it should return no access', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts/3456789')
+      .set('token',token)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        done();
+      });
+  });
+
+  it('it should return params error', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts/345jhgd')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        done();
+      });
+  });
+
+  it('it should return no Account found', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/accounts/3454567')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+  });
+
+  it('it should return a specific account', (done) => {
+    chai
+      .request(app)
+      .get(`/api/v1/accounts/${accountNumber}`)
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
 
 });
