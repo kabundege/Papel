@@ -32,5 +32,12 @@ export default class UserValidator {
     });
     return schema.validate(user, { abortEarly: false });
   }
+
+  static status(user) {
+    const schema = Joi.object().keys({
+      status: Joi.string().required().trim()
+    });
+    return schema.validate(user, { abortEarly: false });
+  }
   
 }

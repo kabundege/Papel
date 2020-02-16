@@ -38,5 +38,35 @@ export default class staffController {
 		   }
 		   responseHandler.successful(200,'Account fetch successful',{data : Acc['0']})
 		   return responseHandler.send(res)
-   	}	
+	}
+	
+	static async activateDeactivate(req,res){
+		let id = req.params.accountenumber; 
+		const {status} = req.body;
+		
+		let  accOwner = await Methods.select('*','users',`userid='${req.user.userid}'`);
+		if(!accOwner['0'].isadmin){
+			responseHandler.error(403,new Error('You are not Allowed'))
+			return responseHandler.send(res)
+		}
+
+		if(isNaN(id)){
+			responseHandler.error(400,new Error('The Account Number Must Be A Number'))
+			return responseHandler.send(res)
+		}
+		
+		if(status!=='active'&&status!=='dormant'){
+			responseHandler.error(400,new Error('Invalid status'))
+			return responseHandler.send(res)
+		}
+
+		let user = await Methods.select('*','Accounts',`accountnumber = '${id}'`)
+		if(!user['0']){
+			responseHandler.error(404,new Error('Account Not Found'))
+			return responseHandler.send(res)
+		}
+		let Acc = await Methods.update('accounts',`status='${status}'`,`accountnumber='${id}'`,'*');
+		responseHandler.successful(200,'Account fetch successful',Acc)
+		return responseHandler.send(res)
+	}   
 }
