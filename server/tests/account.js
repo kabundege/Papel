@@ -491,4 +491,54 @@ describe('Accounts Test', () => {
       });
   });
 
+  it('it should return No Access', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/account?status=active')
+      .set('token',token)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        done();
+      });
+  });
+
+  it('it should return Not Found', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/account?status=dormant')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+  });
+
+  it('it should Accounts created', (done) => {
+    const newAcc = {
+      openingbalance: 897657,
+      type: 'saving'
+    };
+    chai
+      .request(app)
+      .post('/api/v1/account')
+      .set('token',token2)
+      .send(newAcc)
+      .end((err, res) => {
+      accountNumber=res.body.data.accountnumber
+        expect(res.statusCode).to.equal(201);
+        done();
+      });
+  });
+
+  it('it should return fetch was successful', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/account?status=active')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  }); 
+
 });
