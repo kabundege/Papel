@@ -39,6 +39,26 @@ export default class staffController {
 		   responseHandler.successful(200,'Account fetch successful',{data : Acc['0']})
 		   return responseHandler.send(res)
 	}
+
+	static async createriaAccounts(req,res){
+	    let value ;
+	    req.url.includes('dormant') ? value = 'dormant' : value = 'active';
+		let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
+		if(!user['0'].isadmin&&user['0'].type!=="staff"){
+			responseHandler.error(403,new Error('You are not Allowed'))
+			return responseHandler.send(res)
+		}
+
+		const allActive = await Methods.select('*','accounts',`status='${value}'`);
+		
+		if(!allActive['0']){
+			responseHandler.error(404,new Error('No Accounts Found'))
+			return responseHandler.send(res)
+		}
+		responseHandler.successful(200,'the fecth was successful',{data : allActive})
+		return responseHandler.send(res)
+
+  	}
 	
 	static async activateDeactivate(req,res){
 		let id = req.params.accountenumber; 
