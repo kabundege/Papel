@@ -43,9 +43,48 @@ export default class staffController {
             transactionid: trans.transid,
             accountnumber: id,
             cashier: cashier,
-            transactionType: 'credit',
+            transactionType: 'debit',
             accountbalance: newAmount
         });
         return responseHandler.send(res);
-	}   
+    }
+    
+    static async credit(req,res){
+		const {cashier,amount} = req.body;
+		const id = req.params.accountnumber;
+        const uuid  = uuidv4();
+        let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
+
+        if(isNaN(id)){
+			responseHandler.error(400,new Error('The Account Number Must Be A Number'))
+			return responseHandler.send(res)
+		}
+
+	    if(user['0'].type!=="staff"){
+	      responseHandler.error(403,new Error('No Access'))
+	      return responseHandler.send(res)
+        }
+        
+        const userAcc = await Methods.select('*','accounts',`accountnumber='${id}'`);
+
+        if (!userAcc['0']){
+            responseHandler.error(404,new Error('Account Not Found'));
+            return responseHandler.send(res);
+        }
+
+        const trans = await Methods.insert('transactions',
+        'transid,type,accountnumber,cashier,amount,oldbalance,newbalance',
+        "$1,$2,$3,$4,$5,$6,$7",
+        [uuid,'credit',id,cashier,amount,userAcc['0'].balance,amount],
+        '*')
+        const Acc = await Methods.update('accounts',`balance='${amount}',status='active'`,`accountnumber='${id}'`,'*');
+        responseHandler.successful(200,'Account fetch successful',{
+            transactionid: trans.transid,
+            accountnumber: id,
+            cashier: cashier,
+            transactionType: 'credit',
+            accountbalance: amount
+        });
+        return responseHandler.send(res);
+	}
 }

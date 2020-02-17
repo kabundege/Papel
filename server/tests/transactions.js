@@ -155,5 +155,84 @@ describe('Transaction Test', () => {
             done();
         });
     });
+    //asdfghjkl
+    it('it should return No Access', (done) => {
+        const newAcc = {
+          cashier:3456,
+          amount:0
+        };
+        chai
+          .request(app)
+          .post(`/api/v1/transaction/${accountNumber}/credit`)
+          .set('token',token)
+          .send(newAcc)
+          .end((err, res) => {
+            expect(res.statusCode).to.equal(403);
+            done();
+        });
+    });
+
+    it('it should return validation error', (done) => {
+        const newAcc = {
+          cashier:3456
+        };
+        chai
+          .request(app)
+          .post(`/api/v1/transaction/3456/credit`)
+          .set('token',token2)
+          .send(newAcc)
+          .end((err, res) => {
+            expect(res.statusCode).to.equal(400);
+            done();
+        });
+    });
+
+    it('it should return params error', (done) => {
+        const newAcc = {
+          cashier:3456,
+          amount:0
+        };
+        chai
+          .request(app)
+          .post(`/api/v1/transaction/345gfds6/credit`)
+          .set('token',token2)
+          .send(newAcc)
+          .end((err, res) => {
+            expect(res.statusCode).to.equal(400);
+            done();
+        });
+    });
+
+    it('it should return account not found', (done) => {
+        const newAcc = {
+          cashier:3456,
+          amount:0
+        };
+        chai
+          .request(app)
+          .post(`/api/v1/transaction/3456/credit`)
+          .set('token',token2)
+          .send(newAcc)
+          .end((err, res) => {
+            expect(res.statusCode).to.equal(404);
+            done();
+        });
+    });
+
+    it('it should return Accounts created', (done) => {
+        const newAcc = {
+          cashier:3456,
+          amount:0
+        };
+        chai
+          .request(app)
+          .post(`/api/v1/transaction/${accountNumber}/credit`)
+          .set('token',token2)
+          .send(newAcc)
+          .end((err, res) => {
+            expect(res.statusCode).to.equal(200);
+            done();
+        });
+    });
 
 });
