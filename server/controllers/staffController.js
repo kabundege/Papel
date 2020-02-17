@@ -5,7 +5,7 @@ export default class staffController {
   	static async accounts(req,res){
 	    let allAccounts ;
 	    let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
-	    if(!user['0'].isadmin&&!user['0'].type!=="staff"){
+	    if(!user['0'].isadmin&&user['0'].type!=="staff"){
 	      responseHandler.error(403,new Error('No Access'))
 	      return responseHandler.send(res)
 	    }
@@ -23,7 +23,7 @@ export default class staffController {
 		let id = req.params.accountenumber; 
 
 			let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
-			if(!user['0'].isadmin&&!user['0'].type!=="staff"){
+			if(!user['0'].isadmin&&user['0'].type!=="staff"){
 				responseHandler.error(403,new Error('No Access'))
 				return responseHandler.send(res)
 			}
