@@ -40,5 +40,13 @@ export default class UserValidator {
     });
     return schema.validate(user, { abortEarly: false });
   }
+
+  static trans(user) {
+    const schema = Joi.object().keys({
+    cashier: Joi.number().required(),
+    amount: Joi.number().required()
+    });
+    return schema.validate(user, { abortEarly: false });
+  }
   
 }

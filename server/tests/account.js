@@ -2,7 +2,6 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import 'chai/register-should';
 import app from '../app';
-import jwt from 'jsonwebtoken'
 
 const { expect } = chai;
 chai.use(chaiHttp);

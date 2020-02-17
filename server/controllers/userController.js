@@ -97,7 +97,7 @@ export default class userController {
   static async AllAcc(req,res){
     let email = req.params.email;
     let  author = await Methods.select('*','users',`userid='${req.user.userid}'`);
-    if(!author['0'].isadmin&&!author['0'].type!=="staff"){
+    if(!author['0'].isadmin&&author['0'].type!=="staff"){
       responseHandler.error(403,new Error('No Access'))
       return responseHandler.send(res)
     }
