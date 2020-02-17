@@ -86,5 +86,21 @@ export default class staffController {
             accountbalance: amount
         });
         return responseHandler.send(res);
+    }
+    
+    static async userTrans(req,res){
+        const AccNumber = req.params.accountnumber;
+        let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
+			if (isNaN(AccNumber)){
+				responseHandler.error(400,new Error('the AccountNumber Must Be A Number '));
+				return responseHandler.send(res);
+			}
+			const transcs = await Methods.select('*','transactions',`accountnumber='${AccNumber}'`);
+			if (!transcs['0']){
+	  		responseHandler.error(404,new Error('No Transaction Found'));
+	  		return responseHandler.send(res);
+	  	}
+	  	responseHandler.successful(200,'Transaction fetch successful',{data: transcs});
+	  	return responseHandler.send(res);
 	}
 }
