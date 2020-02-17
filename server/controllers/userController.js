@@ -9,8 +9,12 @@ import Methods from '../helpers/dbMethods';
 export default class userController {
   static async signup(req, res) {
     const {
-      firstname, lastname, email, password, type, isadmin,
+      firstname, lastname, email, password,confirmPassword, type, isadmin,
     } = req.body;
+    if (password != confirmPassword) {
+      responseHandler.error(409, new Error('UnMaching Password'));
+      return responseHandler.send(res);
+    }
     const userid = uuidv4();
     const signupUser = await Methods.select("*", "users", `email='${email}'`);
       if (signupUser['0']) {
@@ -22,7 +26,7 @@ export default class userController {
         'users',
         'userid,firstname,lastname,email,password,type,isadmin',
         '$1,$2,$3,$4,$5,$6,$7',
-        [userid, firstname, lastname, email, hashedPassword, type, isadmin],
+        [userid, firstname.trim(), lastname.trim(), email.trim(), hashedPassword, type, isadmin],
         'userid,firstname,lastname,email',
       );
 
@@ -77,7 +81,7 @@ export default class userController {
         "accounts",
         "accid,accountnumber,owner,type,balance",
         "$1,$2,$3,$4,$5",
-        [accid, accnumber, user['0'].userid, type,openingbalance],
+        [accid, accnumber, user['0'].userid, type,0],
         "accountnumber,type,balance"
       );
       responseHandler.successful(201, "user created successful", {

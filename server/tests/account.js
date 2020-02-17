@@ -18,6 +18,7 @@ describe('Accounts Test', () => {
       lastname: 'Ishimwe',
       email: 'kwizera@gmail.com',
       password:'kwizera',
+      confirmPassword:'kwizera',
       type:'staff',
       isadmin:true
     };
@@ -36,7 +37,8 @@ describe('Accounts Test', () => {
       firstname: 'kabundege',
       lastname: 'kwizera',
       email: 'christophe@gmail.com',
-      password:'kwizera'
+      password:'kwizera',
+      confirmPassword:'kwizera'
     };
     chai
       .request(app)
@@ -430,7 +432,7 @@ describe('Accounts Test', () => {
       });
   });
 
-  it('it should return Done successfuly', (done) => {
+  it('it should return createria added successfuly', (done) => {
     const payload = {
       status: "active"
     }
@@ -439,6 +441,50 @@ describe('Accounts Test', () => {
       .patch(`/api/v1/account/${accountNumber}`)
       .set('token',token2)
       .send(payload)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
+
+  it('it should return No access', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/accounts/567889')
+      .set('token',token)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(403);
+        done();
+      });
+  });
+
+  it('it should return invalid params', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/accounts/fdhf876')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(400);
+        done();
+      });
+  });
+
+  it('it should return delete not found', (done) => {
+    chai
+      .request(app)
+      .delete('/api/v1/accounts/567889')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+      });
+  });
+
+  it('it should return delete successfuly', (done) => {
+    chai
+      .request(app)
+      .delete(`/api/v1/accounts/${accountNumber}`)
+      .set('token',token2)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
         done();

@@ -16,7 +16,7 @@ const table = `DROP TABLE IF EXISTS users,transactions,accounts CASCADE;
       createdon TIMESTAMP DEFAULT NOW(),
       owner UUID NOT NULL,
       type VARCHAR(40) NOT NULL,
-      status VARCHAR(40) default 'draft',
+      status VARCHAR(40) default 'active',
       balance INT NOT NULL,
       FOREIGN KEY (owner) REFERENCES users(userid)
     );

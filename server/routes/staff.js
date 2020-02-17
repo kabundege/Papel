@@ -11,4 +11,6 @@ route.get("/api/v1/accounts/:accountenumber",auth.access,staffController.specifi
 
 route.patch("/api/v1/account/:accountenumber",auth.access,validation.status,staffController.activateDeactivate);
 
+route.delete("/api/v1/accounts/:accountenumber",auth.access,staffController.Erase)
+
 export default route;
