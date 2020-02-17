@@ -257,15 +257,37 @@ describe('Transaction Test', () => {
       });
     });
 
-    it('it should return fetch successful', (done) => {
+  it('it should return fetch successful', (done) => {
       chai
-        .request(app)
-        .get(`/api/v1/${accountNumber}/transactions`)
-        .set('token',token2)
-        .end((err, res) => {
-          expect(res.statusCode).to.equal(200);
-          done();
+      .request(app)
+      .get(`/api/v1/${accountNumber}/transactions`)
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
       });
   });
 
+  it('it should return fetch successful', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/transaction/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed')
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(404);
+        done();
+    });
+  });
+
+  it('it should return fetch successful', (done) => {
+    chai
+      .request(app)
+      .get(`/api/v1/transaction/${transactionId}`)
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+    });
+  });
+ 
 });
