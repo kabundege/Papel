@@ -235,4 +235,37 @@ describe('Transaction Test', () => {
         });
     });
 
+    it('it should return params error', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/ghh787/transactions`)
+        .set('token',token2)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+      });
+    });
+
+    it('it should return not found', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/4567/transactions`)
+        .set('token',token2)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(404);
+          done();
+      });
+    });
+
+    it('it should return fetch successful', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/${accountNumber}/transactions`)
+        .set('token',token2)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+      });
+  });
+
 });
