@@ -102,5 +102,16 @@ export default class staffController {
 	  	}
 	  	responseHandler.successful(200,'Transaction fetch successful',{data: transcs});
 	  	return responseHandler.send(res);
+    }
+    
+    static async specificTrans(req,res){
+		const id = req.params.transid;
+        const trans = await Methods.select('*','transactions',`transid='${id}'`);
+        if (!trans['0']){
+        responseHandler.error(404,new Error('Transaction Not Found'));
+        return responseHandler.send(res);
+	  	}
+	  	responseHandler.successful(200,'Transaction fetch successful',{data: trans['0']});
+	  	return responseHandler.send(res);
 	}
 }

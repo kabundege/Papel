@@ -5,6 +5,7 @@ import validation from "../middleware/transactions";
 
 const route = express.Router();
 
+route.get('/api/v1/transaction/:transid',auth.access,transController.specificTrans)
 
 route.get('/api/v1/:accountnumber/transactions',auth.access,transController.userTrans)
 
