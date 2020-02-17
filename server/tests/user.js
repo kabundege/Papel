@@ -26,12 +26,31 @@ describe('users can signup', () => {
       });
   });
 
+  it('it should return confirm password error', (done) => {
+    const newUser = {
+      firstname: 'John',
+      lastname: 'Ishimwe',
+      email: 'john45@gmail.com',
+      password:'kwizera',
+      confirmPassword:'inhgfdka'
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/signup')
+      .send(newUser)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(409);
+        done();
+      });
+  });
+
   it('it should return account created', (done) => {
     const newUser = {
       firstname: 'John',
       lastname: 'Ishimwe',
       email: 'john45@gmail.com',
       password:'kwizera',
+      confirmPassword:'kwizera',
       type:'client',
       isadmin:false
     };
@@ -51,6 +70,7 @@ describe('users can signup', () => {
       lastname: 'Ishimwe',
       email: 'john45@gmail.com',
       password:'kwizera',
+      confirmPassword:'kwizera',
       type:'client',
       isadmin:false
     };

@@ -68,5 +68,28 @@ export default class staffController {
 		let Acc = await Methods.update('accounts',`status='${status}'`,`accountnumber='${id}'`,'*');
 		responseHandler.successful(200,'Account fetch successful',Acc)
 		return responseHandler.send(res)
-	}   
+	}  
+	
+	static async Erase(req,res){
+	  	let id = req.params.accountenumber; 
+		let  accOwner = await Methods.select('*','users',`userid='${req.user.userid}'`);
+		if(!accOwner['0'].isadmin&&accOwner['0'].type!=='staff'){
+			responseHandler.error(403,new Error('You are not Allowed'))
+			return responseHandler.send(res)
+		}
+		if(isNaN(id)){
+			responseHandler.error(400,new Error('The Account Number Must Be A Number'))
+			return responseHandler.send(res)
+		}
+		let user = await Methods.select('*','Accounts',`accountnumber = '${id}'`)
+		if(!user['0']){
+			responseHandler.error(404,new Error('Account Not Found'))
+			return responseHandler.send(res)
+		}
+
+		let Acc = await Methods.delete('accounts',`accountnumber='${id}'`);
+		responseHandler.successful(200,'Account successfully deleted')
+		return responseHandler.send(res)
+
+  	} 
 }
