@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run table && babel-watch server.js",
+    "start": "babel-node server/server.js",
     "test": "npm run table && nyc  --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill --timeout 100000 ./server/tests/*.js --exit",
     "test:remote": "npm run table && nyc mocha --require @babel/register --require @babel/polyfill --timeout 100000 ./server/tests/*.js --exit",
-    "dev": "NODE_ENV=development nodemon --exec babel-node ./server/index.js",
+    "dev": "npm run table && babel-watch ./server/server.js",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "table": "babel-node ./server/createTables.js"
+    "table": "node ./build/createTables.js",
+    "build": "babel server --out-dir build && npm run table"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "config": "^3.2.5",
+    "@hapi/joi": "^17.1.0",
     "dotenv": "^8.2.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
@@ -42,7 +44,6 @@
     "bcrypt-nodejs": "0.0.3",
     "coverage": "^0.4.1",
     "coveralls": "^3.0.9",
-    "@hapi/joi": "^17.1.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^7.0.1",
@@ -52,6 +53,6 @@
     "eslint-plugin-import": "^2.20.0"
   },
   "engines": {
-    "node": "6.9.0"
+    "node": "12"
   }
 }
