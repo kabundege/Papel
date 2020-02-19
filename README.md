@@ -1,7 +1,7 @@
 # **Papel**
 [![Build Status](https://travis-ci.org/kabundege/Papel.svg?branch=develop)](https://travis-ci.org/kabundege/Papel) [![Coverage Status](https://coveralls.io/repos/github/kabundege/Papel/badge.svg?branch=develop)](https://coveralls.io/github/kabundege/Papel?branch=develop) [![Maintainability](https://api.codeclimate.com/v1/badges/a7e35ba5f19cad3dca80/maintainability)](https://codeclimate.com/github/kabundege/Papel/maintainability)
 
-#**Project Description**
+**Project Description**
 
 Papel is a light-weight core banking application that powers banking operations like account
 creation, customer deposits, and withdrawals. This app is meant to support a single bank, where
@@ -18,12 +18,13 @@ deposit money.
 - [Landing page](https://kabundege.github.io/Papel/)
 - [Sign up.](https://kabundege.github.io/Papel/UI/html/signup.html)
 - [Sign in.](https://kabundege.github.io/Papel/)
-- [Admin can activate,Deactivate,view and delete an account](https://kabundege.github.io/Papel/UI/html/admin.html)
-- [Admin can change a to a staff or an Admin](https://kabundege.github.io/Papel/UI/html/upgrade.html)
-- [Staff can view  all or specififc and delete any bank account](https://kabundege.github.io/Papel/UI/html/staff.html)
+- [Admin can activate, Deactivate, view and delete an account](https://kabundege.github.io/Papel/UI/html/admin.html)
+- [Admin can change a staff or an Admin](https://kabundege.github.io/Papel/UI/html/upgrade.html)
+- [Staff can view  all or specififc bank account](https://kabundege.github.io/Papel/UI/html/staff.html)
+- [Staff/admin can delete a bank account](https://kabundege.github.io/Papel/UI/html/staff.html)
 - [Staff can make a transaction ](https://kabundege.github.io/Papel/UI/html/transactions.html)
-- [Users can view all or specific transaction](https://kabundege.github.io/Papel/UI/html/dashboard.html)
-- [Users can can create an account](https://kabundege.github.io/Papel/UI/html/createAcc.html)
+- [Users can view all or a specific transaction](https://kabundege.github.io/Papel/UI/html/dashboard.html)
+- [Users can create an account](https://kabundege.github.io/Papel/UI/html/createAcc.html)
 
 
 # **Technonlogies**
@@ -31,7 +32,7 @@ deposit money.
 - **Node** - run time environment for JavaScript
 - **Express JS** - API development framework
 - **Eslint** - code analysis tool for identifying problematic patterns found in JavaScript code
-- **Babel JS** - JavaScript compiler (**ES5** to **ES6**)
+- **Babel JS** - JavaScript compiler (**ES6** to **ES5**)
 - **Mocha and Chai** - for testing
 
 ## **You need the following to be able to run the application**
