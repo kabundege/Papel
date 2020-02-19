@@ -24,6 +24,7 @@
     "dotenv": "^8.2.0",
     "email-validator": "^2.0.4",
     "express": "^4.17.1",
+    "joi-password-complexity": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",

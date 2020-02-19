@@ -9,35 +9,17 @@ chai.use(chaiHttp);
 describe('Accounts Test', () => {
   let token;
   let token2;
+  let token3;
   let accountNumber;
   let oldToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiIxZjZkMGJlNS0xOTFiLTRhMTItOGMzOC01ODJhZjA0NjBmODgiLCJpYXQiOjE1ODE4MDI2MDJ9.8-IGTb-E62kIxdT-L7RGgZTI923MU7kHoNbwPjNwQcs';
-  it('it should return account created', (done) => {
-    const newUser = {
-      firstname: 'John',
-      lastname: 'Ishimwe',
-      email: 'kwizera@gmail.com',
-      password:'kwizera',
-      confirmPassword:'kwizera',
-      type:'staff',
-      isadmin:true
-    };
-    chai
-      .request(app)
-      .post('/api/v1/auth/signup')
-      .send(newUser)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(201);
-        done();
-      });
-  });
 
   it('it should return account created', (done) => {
     const newUser = {
       firstname: 'kabundege',
       lastname: 'kwizera',
       email: 'christophe@gmail.com',
-      password:'kwizera',
-      confirmPassword:'kwizera'
+      password:'aPassword123!',
+      confirmPassword:'aPassword123!'
     };
     chai
       .request(app)
@@ -50,9 +32,63 @@ describe('Accounts Test', () => {
   });
 
   it('login successful',(done) => {
+    const loggedUser = {
+      email: 'christophe@gmail.com',
+      password: 'aPassword123!'
+    };
+    chai
+      .request(app)
+      .post('/api/v1/auth/signin')
+      .send(loggedUser)
+      .end((err, res) => {
+        token = res.body.data.token;
+        expect(res.status).to.equal(200);
+        done();
+      });
+  });
+
+  it('login successful',(done) => {
+      const loggedUser = {
+        email: 'kabundege@gmail.com',
+        password: 'aPassword123!'
+      };
+      chai
+        .request(app)
+        .post('/api/v1/auth/signin')
+        .send(loggedUser)
+        .end((err, res) => {
+          token3 = res.body.data.token;
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+
+    it('it should return account created', (done) => {
+      const newUser = {
+        firstname: 'kabundege',
+        lastname: 'kwizera',
+        email: 'kwizera@gmail.com',
+        password:'aPassword123!',
+        confirmPassword:'aPassword123!',
+        type:'staff',
+        isadmin:true
+      };
+      chai
+        .request(app)
+        .post('/api/v1/auth/signup/admin')
+        .send(newUser)
+        .set('token',token3)
+        .end((err, res) => {
+          token2=res.body.data.token;
+          expect(res.statusCode).to.equal(201);
+          done();
+        });
+    });
+
+  it('login successful',(done) => {
       const loggedUser = {
         email: 'kwizera@gmail.com',
-        password: 'kwizera'
+        password: 'aPassword123!'
       };
       chai
         .request(app)
@@ -65,25 +101,9 @@ describe('Accounts Test', () => {
         });
     });
 
-  it('login successful',(done) => {
-      const loggedUser = {
-        email: 'christophe@gmail.com',
-        password: 'kwizera'
-      };
-      chai
-        .request(app)
-        .post('/api/v1/auth/signin')
-        .send(loggedUser)
-        .end((err, res) => {
-          token = res.body.data.token;
-          expect(res.status).to.equal(200);
-          done();
-        });
-    });
-
   it('it should no token ', (done) => {
     const newAcc = {
-      openingbalance: 897657
+      type:'saving'
     };
     chai
       .request(app)
@@ -97,7 +117,6 @@ describe('Accounts Test', () => {
   
   it('it should validation error', (done) => {
     const newAcc = {
-      openingbalance: 897657,
       type: 'giveme'
     };
     chai
@@ -113,7 +132,7 @@ describe('Accounts Test', () => {
 
   it('it should validation error', (done) => {
     const newAcc = {
-      openingbalance: 897657
+      type:""
     };
     chai
       .request(app)
@@ -150,7 +169,6 @@ describe('Accounts Test', () => {
 
   it('it should Accounts created', (done) => {
     const newAcc = {
-      openingbalance: 897657,
       type: 'saving'
     };
     chai
@@ -263,7 +281,7 @@ describe('Accounts Test', () => {
       });
   });
 
-  it('it should return no access', (done) => {
+  it('it should return old Token', (done) => {
     chai
       .request(app)
       .get('/api/v1/user/kwizera@gmail.com/accounts')
@@ -368,7 +386,7 @@ describe('Accounts Test', () => {
 
   it('it should return body validation', (done) => {
     const payload = {
-
+      status:''
     };
     chai
       .request(app)
@@ -376,7 +394,6 @@ describe('Accounts Test', () => {
       .set('token',token2)
       .send(payload)
       .end((err, res) => {
-        console.log(err)
         expect(res.statusCode).to.equal(400);
         done();
       });
@@ -514,7 +531,6 @@ describe('Accounts Test', () => {
 
   it('it should Accounts created', (done) => {
     const newAcc = {
-      openingbalance: 897657,
       type: 'saving'
     };
     chai
