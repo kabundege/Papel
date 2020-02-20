@@ -7,6 +7,13 @@ const remove = id => {
   document.querySelector(`.${id}`).style = "background:transparent";
 };
 
+const makesure = () =>{
+  if(confirm('Are you Sure')){
+    alert('its Done')
+  }else{
+    alert('Abort Successful')
+  }
+}
 const create = id => {
   const newDiv = document.createElement("div");
   const olddiv = document.querySelector(`.${id}`).innerHTML;

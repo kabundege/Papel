@@ -8,6 +8,8 @@ const route = express.Router();
 
 route.post("/api/v1/auth/signup", userValidation.signup, userController.signup);
 
+route.post("/api/v1/auth/signup/admin",auth.access, userValidation.admin, userController.admin)
+
 route.post("/api/v1/auth/signin", userValidation.signin, userController.signin);
 
 route.post("/api/v1/account",auth.access,accountValidation.createAcc, userController.createAcc);

@@ -164,11 +164,11 @@ body{
     .sidebar{
       width:25%;
       height:480px;
-      background:rgb(255,255,255,0.3);
+      background:rgb(245, 245, 245);
       text-align: left;
   }
     .parent {
-        background: rgb(255,255,255,0.3);
+        background: rgb(245, 245, 245);
         width:75%;
         height:470px;
         display: grid;
@@ -190,9 +190,15 @@ body{
         height: 40px;
         font-size: 15px;
         border:none;
+        color:white;
         border-radius: 5px;
         border-bottom:2px solid rgba(250, 1, 1, 0.822);
         outline: none;
+        background-color: rgb(71, 71, 71);
+    }
+    .parent input:hover{
+      
+      background-color: rgb(136, 136, 136);
     }
     .parent input[name="currency"]{
         height: 40px;
@@ -252,11 +258,10 @@ body{
         transition: 0.5s;
     }
     .parent h2{
-      color:white
+      color:rgb(245, 85, 37)
   }
   .sidebar ul li{
     list-style: none;
-    color:white;
     padding:20px 30px;
     width:100%;
     margin-left:-5%;
@@ -265,7 +270,7 @@ body{
 }
 .sidebar a{
     text-decoration: none;
-    color:white;
+    color:#333;
     margin-left:-25%
 }
 .sidebar a:hover{
@@ -389,7 +394,8 @@ body{
         height:350px;
         border:1px solid white;
         display:grid;
-        margin-left:2%
+        margin-left:2%;
+        background-color: rgb(204, 109, 54);
       }
      
       .parent {

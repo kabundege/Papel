@@ -184,11 +184,11 @@ body{
     .sidebar{
         width:25%;
         height:480px;
-        background:rgb(255,255,255,0.3);
+        background:rgb(245,245,245);
         text-align: left;
     }
     .parent {
-        background: rgb(255,255,255,0.3);
+        background: rgb(245,245,245);
         width:75%;
         height:470px;
         display: grid;
@@ -249,7 +249,7 @@ body{
   }
     .sidebar ul li{
         list-style: none;
-        color:white;
+        color:#333;
         padding:20px 30px;
         width:100%;
         margin-left:-5%;
@@ -258,7 +258,7 @@ body{
     }
     .sidebar a{
         text-decoration: none;
-        color:white;
+        color:#333;
         margin-left:-25%
     }
     .sidebar a:hover{
@@ -266,7 +266,6 @@ body{
         transition: 0.6s;
     }.sidebar ul li{
         list-style: none;
-        color:white;
         padding:20px 30px;
         width:100%;
         margin-left:-5%;
@@ -275,7 +274,7 @@ body{
     }
     .sidebar a{
         text-decoration: none;
-        color:white;
+        color:#333;
         margin-left:-25%
     }
     .footer {

@@ -4,15 +4,21 @@ import Methods from "../helpers/dbMethods";
 
 export default class staffController {
 	static async debit(req,res){
-		const {cashier,amount} = req.body;
+		const {amount} = req.body;
 		const id = req.params.accountnumber;
         const uuid  = uuidv4();
-        let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
+
+        if(typeof(amount)!== 'number'){
+            responseHandler.error(400,new Error('The Amount Must Be A Number'))
+			return responseHandler.send(res)
+        }
 
         if(isNaN(id)){
 			responseHandler.error(400,new Error('The Account Number Must Be A Number'))
 			return responseHandler.send(res)
 		}
+
+        let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
 
 	    if(user['0'].type!=="staff"){
 	      responseHandler.error(403,new Error('No Access'))
@@ -27,7 +33,7 @@ export default class staffController {
         }
 
         if(userAcc['0'].balance<amount){
-            responseHandler.error(409,new Error('insufficient Amount'))
+            responseHandler.error(406,new Error('insufficient Amount'))
             return responseHandler.send(res)
         }
 
@@ -36,29 +42,35 @@ export default class staffController {
         const trans = await Methods.insert('transactions',
         'transid,type,accountnumber,cashier,amount,oldbalance,newbalance',
         "$1,$2,$3,$4,$5,$6,$7",
-        [uuid,'debit',id,cashier,amount,userAcc['0'].balance,newAmount],
+        [uuid,'debit',id,req.user.userid,amount,userAcc['0'].balance,newAmount],
         '*')
         const Acc = await Methods.update('accounts',`balance='${newAmount}',status='active'`,`accountnumber='${id}'`,'*');
-        responseHandler.successful(200,'Account fetch successful',{
-            transactionid: trans.transid,
-            accountnumber: id,
-            cashier: cashier,
+        responseHandler.successful(200,'Debit Done successfuly',{
+            transactionId: trans.transid,
+            accountNumber: id,
+            cashier: req.user.userid,
             transactionType: 'debit',
-            accountbalance: newAmount
+            accountBalance: newAmount
         });
         return responseHandler.send(res);
     }
     
     static async credit(req,res){
-		const {cashier,amount} = req.body;
+		const {amount} = req.body;
 		const id = req.params.accountnumber;
         const uuid  = uuidv4();
-        let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
+
+        if(typeof(amount)!=='number'){
+            responseHandler.error(400,new Error('The Amount Must Be A Number'))
+			return responseHandler.send(res)
+        }
 
         if(isNaN(id)){
 			responseHandler.error(400,new Error('The Account Number Must Be A Number'))
 			return responseHandler.send(res)
 		}
+
+        let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
 
 	    if(user['0'].type!=="staff"){
 	      responseHandler.error(403,new Error('No Access'))
@@ -72,18 +84,20 @@ export default class staffController {
             return responseHandler.send(res);
         }
 
+        let newAmount = userAcc['0'].balance + amount;
+
         const trans = await Methods.insert('transactions',
         'transid,type,accountnumber,cashier,amount,oldbalance,newbalance',
         "$1,$2,$3,$4,$5,$6,$7",
-        [uuid,'credit',id,cashier,amount,userAcc['0'].balance,amount],
+        [uuid,'debit',id,req.user.userid,amount,userAcc['0'].balance,newAmount],
         '*')
-        const Acc = await Methods.update('accounts',`balance='${amount}',status='active'`,`accountnumber='${id}'`,'*');
-        responseHandler.successful(200,'Account fetch successful',{
-            transactionid: trans.transid,
-            accountnumber: id,
-            cashier: cashier,
-            transactionType: 'credit',
-            accountbalance: amount
+        const Acc = await Methods.update('accounts',`balance='${newAmount}',status='active'`,`accountnumber='${id}'`,'*');
+        responseHandler.successful(200,'Debit Done successfuly',{
+            transactionId: trans.transid,
+            accountNumber: id,
+            cashier: req.user.userid,
+            transactionType: 'debit',
+            accountBalance: newAmount
         });
         return responseHandler.send(res);
     }

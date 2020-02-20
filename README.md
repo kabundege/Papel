@@ -66,19 +66,22 @@ npm test
 
 ### API ENDPOINTS
 | API | Methods  | Description  |
-| ------- | --- | --- |
-`/` | GET | introduction |
+| ------- | --- | --- 
 | `/api/v1/auth/signup` | POST | user signup |
+| `/api/v1/auth/signup/admin` | POST | Admin/staff signup |
 | `/api/v1/auth/login` | POST | user login |
-| `/api/v1/accounts` | POST | create account |
+| `/api/v1/account` | POST | create account |
 | `/api/v1/account/<accountNo>` | POST | activate or deactivate account |
 | `/api/v1/accounts` | GET | display all bank accounts |
-| `/api/v1/accounts/<accountNo>` | GET | display a specific account |
-| `/api/v1/account/<accountNo>` | DELETE | delete an account |
-| `/api/v1/transactions/<accountNo>/debit` | POST | debit a bank account |
-| `/api/v1/transactions/<accountNo>/credit` | POST | credit a bank account |
-| `/api/v1/accounts/:accountNo/transactions` | GET | display a specific account transaction history |
-| `/api/v1/transactions/:transactionId` | GET | display a specific transaction details |
+| `/api/v1/accounts/<accountNo>` | GET | display a specific account by account Number|
+| `/api/v1/user/<email>/accounts` | GET | display a specific account by email |
+| `/api/v1/account?<status>` | GET | display a specific account by status active/dormant|
+| `/api/v1/account/<accountNo>` | DELETE | admin/staff can delete an account |
+| `/api/v1/account/<accountenumber>` | UPDATE | admin/staff canchange account status |
+| `/api/v1/transactions/<accountNo>/debit` | POST | staff can debit a bank account |
+| `/api/v1/transactions/<accountNo>/credit` | POST | staff can credit a bank account |
+| `/api/v1/accounts/<accountNo>/transactions` | GET | display a specific account transaction history |
+| `/api/v1/transactions/<transactionId>` | GET | display a specific transaction details |
 
 
 ### How can it be manually tested
