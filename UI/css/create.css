@@ -113,11 +113,11 @@ body{
     .sidebar{
       width:25%;
       height:480px;
-      background:rgb(255,255,255,0.3);
+      background:rgb(245,245,245);
       text-align: left;
   }
     .parent {
-        background: rgb(255,255,255,0.3);
+        background: rgb(245,245,245);
         width:75%;
         height:470px;
         display: grid;
@@ -188,11 +188,11 @@ body{
         transition: 0.5s;
     }
     .parent h2{
-      color:white
+      color:rgb(235, 113, 13)
   }
   .sidebar ul li{
     list-style: none;
-    color:white;
+    color:#333;
     padding:20px 30px;
     width:100%;
     margin-left:-5%;
@@ -201,7 +201,7 @@ body{
 }
 .sidebar a{
     text-decoration: none;
-    color:white;
+    color:#333;
     margin-left:-25%
 }
 .sidebar a:hover{

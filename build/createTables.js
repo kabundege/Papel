@@ -1,4 +1,14 @@
-import pool from "./config/dbConfig";
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _dbConfig = require("./config/dbConfig");
+
+var _dbConfig2 = _interopRequireDefault(_dbConfig);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const table = `DROP TABLE IF EXISTS users,transactions,accounts CASCADE;
     CREATE TABLE users (
@@ -32,9 +42,10 @@ const table = `DROP TABLE IF EXISTS users,transactions,accounts CASCADE;
       oldbalance FLOAT NOT NULL,
       newbalance FLOAT NOT NULL
     );`;
+
 const createTable = async () => {
   try {
-    await pool.query(table);
+    await _dbConfig2.default.query(table);
     console.log(' table created');
   } catch (err) {
     console.log(err);
@@ -42,5 +53,4 @@ const createTable = async () => {
 };
 
 createTable();
-
-export default createTable;
+exports.default = createTable;
