@@ -20,7 +20,7 @@ export default class staffController {
 	} 
 	
 	static async specificAccount(req,res){
-		let id = req.params.accountenumber; 
+		let id = req.params.accountNumber; 
 
 			let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
 			if(!user['0'].isadmin&&user['0'].type!=="staff"){
@@ -61,7 +61,7 @@ export default class staffController {
   	}
 	
 	static async activateDeactivate(req,res){
-		let id = req.params.accountenumber; 
+		let id = req.params.accountNumber; 
 		const {status} = req.body;
 		
 		let  accOwner = await Methods.select('*','users',`userid='${req.user.userid}'`);
@@ -91,7 +91,8 @@ export default class staffController {
 	}  
 	
 	static async Erase(req,res){
-	  	let id = req.params.accountenumber; 
+		  let id = req.params.accounteNumber; 
+		  
 		let  accOwner = await Methods.select('*','users',`userid='${req.user.userid}'`);
 		if(!accOwner['0'].isadmin&&accOwner['0'].type!=='staff'){
 			responseHandler.error(403,new Error('You are not Allowed'))

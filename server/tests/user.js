@@ -302,5 +302,100 @@ describe('users can signup', () => {
         });
     });
 
+    it('it should return confirm password required', (done) => {
+      const newAcc = {
+        password:"kwizera"
+      };
+      chai
+        .request(app)
+        .post('/api/v1/kwizera@gmail.com/reset')
+        .send(newAcc)
+        .set('token',token2)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+
+    it('it should return invalid email', (done) => {
+      const newAcc = {
+        password:"kwizera",
+        confirmPassword:"kwizera"
+      };
+      chai
+        .request(app)
+        .post('/api/v1/kwizeragmail.com/reset')
+        .send(newAcc)
+        .set('token',token2)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+ 
+    it('it should email not found', (done) => {
+      const newAcc = {
+        password:"kwizera",
+        confirmPassword:"kwizera"
+      };
+      chai
+        .request(app)
+        .post('/api/v1/john4kkj@gmail.com/reset')
+        .send(newAcc)
+        .set('token',token)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(404);
+          done();
+        });
+    });
+
+    it('it should return password strength', (done) => {
+      const newAcc = {
+        password:"kwizera",
+        confirmPassword:"kwizera"
+      };
+      chai
+        .request(app)
+        .post('/api/v1/kwizera@gmail.com/reset')
+        .send(newAcc)
+        .set('token',token2)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+
+    it('it should return not matching', (done) => {
+      const newAcc = {
+        password:"aPassword123!",
+        confirmPassword:"aPassword123"
+      };
+      chai
+        .request(app)
+        .post('/api/v1/kwizera@gmail.com/reset')
+        .send(newAcc)
+        .set('token',token2)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+        });
+    });
+
+    it('it should return reset succesful', (done) => {
+      const newAcc = {
+        password:"aPassword123!",
+        confirmPassword:"aPassword1231"
+      };
+      chai
+        .request(app)
+        .post('/api/v1/kwizera@gmail.com/reset')
+        .send(newAcc)
+        .set('token',token2)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          done();
+        });
+    });
+
   })
 

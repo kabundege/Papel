@@ -79,7 +79,6 @@ describe('Accounts Test', () => {
         .send(newUser)
         .set('token',token3)
         .end((err, res) => {
-          token2=res.body.data.token;
           expect(res.statusCode).to.equal(201);
           done();
         });
@@ -121,7 +120,7 @@ describe('Accounts Test', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/account')
+      .post('/api/v1/user/account')
       .set('token',token)
       .send(newAcc)
       .end((err, res) => {
@@ -136,22 +135,11 @@ describe('Accounts Test', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/account')
+      .post('/api/v1/user/account')
       .set('token',token)
       .send(newAcc)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
-        done();
-      });
-  });
-
-  it('it should ALL Accounts ', (done) => {
-    chai
-      .request(app)
-      .get('/api/v1/accounts')
-      .set('token',token2)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(404);
         done();
       });
   });
@@ -173,11 +161,11 @@ describe('Accounts Test', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/account')
+      .post('/api/v1/user/account')
       .set('token',token2)
       .send(newAcc)
       .end((err, res) => {
-      accountNumber=res.body.data.accountnumber
+      accountNumber=res.body.data.accountNumber
         expect(res.statusCode).to.equal(201);
         done();
       });
@@ -185,12 +173,11 @@ describe('Accounts Test', () => {
 
   it('it should Accounts token error', (done) => {
     const newAcc = {
-      openingbalance: 897657,
       type: 'saving'
     };
     chai
       .request(app)
-      .post('/api/v1/account')
+      .post('/api/v1/user/account')
       .set('token','sdfghjhsgfwdvwsqsqdecvfvfv')
       .send(newAcc)
       .end((err, res) => {
@@ -199,14 +186,13 @@ describe('Accounts Test', () => {
       });
   });
 
-  it('it should Accounts created', (done) => {
+  it('it should token error', (done) => {
     const newAcc = {
-      openingbalance: 897657,
       type: 'saving'
     };
     chai
       .request(app)
-      .post('/api/v1/account')
+      .post('/api/v1/user/account')
       .set('tokehsn',token2)
       .send(newAcc)
       .end((err, res) => {
@@ -328,7 +314,7 @@ describe('Accounts Test', () => {
   it('it should return no access', (done) => {
     chai
       .request(app)
-      .get('/api/v1/accounts/3456789')
+      .get('/api/v1/user/accounts/3456789')
       .set('token',token)
       .end((err, res) => {
         expect(res.statusCode).to.equal(403);
@@ -339,7 +325,7 @@ describe('Accounts Test', () => {
   it('it should return params error', (done) => {
     chai
       .request(app)
-      .get('/api/v1/accounts/345jhgd')
+      .get('/api/v1/user/accounts/345jhgd')
       .set('token',token2)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -350,7 +336,7 @@ describe('Accounts Test', () => {
   it('it should return no Account found', (done) => {
     chai
       .request(app)
-      .get('/api/v1/accounts/3454567')
+      .get('/api/v1/user/accounts/3454567')
       .set('token',token2)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
@@ -361,7 +347,7 @@ describe('Accounts Test', () => {
   it('it should return a specific account', (done) => {
     chai
       .request(app)
-      .get(`/api/v1/accounts/${accountNumber}`)
+      .get(`/api/v1/user/accounts/${accountNumber}`)
       .set('token',token2)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
@@ -499,7 +485,7 @@ describe('Accounts Test', () => {
   it('it should return delete successfuly', (done) => {
     chai
       .request(app)
-      .delete(`/api/v1/accounts/${accountNumber}`)
+      .delete(`/api/v1/accounts/${accounteNumber}`)
       .set('token',token2)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
@@ -535,11 +521,11 @@ describe('Accounts Test', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/account')
+      .post('/api/v1/user/account')
       .set('token',token2)
       .send(newAcc)
       .end((err, res) => {
-      accountNumber=res.body.data.accountnumber
+      accountNumber=res.body.data.accountNumber
         expect(res.statusCode).to.equal(201);
         done();
       });

@@ -49,8 +49,15 @@ export default class userController {
 
   static async reset(req, res) {
     const {
-      email, password,confirmPassword
+       password,confirmPassword
     } = req.body;
+
+    const email = req.params.email;
+
+    if(!emailValidator.validate(email)){
+      responseHandler.error(400, new Error("Invalid email type"));
+      return responseHandler.send(res);
+    }
 
     const loginUser = await Methods.select("*", "users", `email='${email}'`);
 
@@ -73,18 +80,18 @@ export default class userController {
 
       const resetUser = await Methods.update(
         'users',
-        `pasword = '${password}'`,
+        `password = '${hashedPassword}'`,
         `email='${email}'`
-        ,'userid,firstname,lastname,email',
+        ,'userid,firstname,lastname,email,password',
       );
 
       const token = tokenProvider({
-        userid: newUser.userid,
+        userid: resetUser.userid,
       });
 
-      responseHandler.successful(201, 'user created successful', {
+      responseHandler.successful(200, 'reset successful ', {
         token,
-        user: newUser,
+        NewPassword: password,
       });
       return responseHandler.send(res);
     }
@@ -118,7 +125,7 @@ export default class userController {
 
   static async admin(req, res) {
     const {
-      firstname, lastname, email, password,confirmPassword, type, isadmin,
+      firstname, lastname, email, password,confirmPassword, type, isAdmin,
     } = req.body;
 
     const {error} = passowrdValidator().validate(password)
@@ -128,7 +135,7 @@ export default class userController {
     }
 
     let  author = await Methods.select('*','users',`userid='${req.user.userid}'`);
-    if(!author['0'].isadmin&&author['0'].type!=="staff"){
+    if(!author['0'].isadmin){
       responseHandler.error(403,new Error('No Access'))
       return responseHandler.send(res)
     }
@@ -146,9 +153,9 @@ export default class userController {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await Methods.insert(
         'users',
-        'userid,firstname,lastname,email,password,type,isadmin',
+        'userid,firstname,lastname,email,password,type,isAdmin',
         '$1,$2,$3,$4,$5,$6,$7',
-        [userid, firstname.trim(), lastname.trim(), email.trim(), hashedPassword, type, isadmin],
+        [userid, firstname.trim(), lastname.trim(), email.trim(), hashedPassword, type, isAdmin],
         'userid,firstname,lastname,email',
       );
 
@@ -164,7 +171,7 @@ export default class userController {
     }
 
   static async createAcc(req, res) {
-    const { openingbalance, type } = req.body;
+    const { type } = req.body;
     let accnumber = random(10000000,1000000000)
     const accid = uuidv4();
       if(type!=='saving'&&type!=='current'){
@@ -180,7 +187,7 @@ export default class userController {
         "accountnumber,type,balance"
       );
       responseHandler.successful(201, "user created successful", {
-        accountnumber: newAcc.accountnumber,
+        accountNumber: newAcc.accountnumber,
         firstName: user["0"].firstname,
         lastName: user["0"].lastname,
         type: newAcc.type,
@@ -211,6 +218,6 @@ export default class userController {
         return responseHandler.send(res);
       }
       responseHandler.successful(200,"Account Fetch successful",{data : Acc});
-        return responseHandler.send(res);
+      return responseHandler.send(res);
   }
 }
