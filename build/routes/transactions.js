@@ -24,8 +24,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const route = _express2.default.Router();
 
-route.get('/api/v1/transaction/:transid', _auth2.default.access, _transController2.default.specificTrans);
-route.get('/api/v1/:accountnumber/transactions', _auth2.default.access, _transController2.default.userTrans);
-route.post('/api/v1/transaction/:accountnumber/credit', _auth2.default.access, _transactions2.default.trans, _transController2.default.credit);
-route.post('/api/v1/transaction/:accountnumber/debit', _auth2.default.access, _transactions2.default.trans, _transController2.default.debit);
+route.get('/api/v1/transaction/:transId', _auth2.default.access, _transController2.default.specificTrans);
+route.get('/api/v1/:accountNumber/transactions', _auth2.default.access, _transController2.default.userTrans);
+route.post('/api/v1/transaction/:accounteNumber/credit', _auth2.default.access, _transactions2.default.trans, _transController2.default.credit);
+route.post('/api/v1/transaction/:accountNumber/debit', _auth2.default.access, _transactions2.default.trans, _transController2.default.debit);
 exports.default = route;

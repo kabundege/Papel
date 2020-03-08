@@ -78,7 +78,6 @@ describe('Accounts Test', () => {
     };
 
     _chai2.default.request(_app2.default).post('/api/v1/auth/signup/admin').send(newUser).set('token', token3).end((err, res) => {
-      token2 = res.body.data.token;
       expect(res.statusCode).to.equal(201);
       done();
     });
@@ -110,7 +109,7 @@ describe('Accounts Test', () => {
       type: 'giveme'
     };
 
-    _chai2.default.request(_app2.default).post('/api/v1/account').set('token', token).send(newAcc).end((err, res) => {
+    _chai2.default.request(_app2.default).post('/api/v1/user/account').set('token', token).send(newAcc).end((err, res) => {
       expect(res.statusCode).to.equal(400);
       done();
     });
@@ -120,14 +119,8 @@ describe('Accounts Test', () => {
       type: ""
     };
 
-    _chai2.default.request(_app2.default).post('/api/v1/account').set('token', token).send(newAcc).end((err, res) => {
+    _chai2.default.request(_app2.default).post('/api/v1/user/account').set('token', token).send(newAcc).end((err, res) => {
       expect(res.statusCode).to.equal(400);
-      done();
-    });
-  });
-  it('it should ALL Accounts ', done => {
-    _chai2.default.request(_app2.default).get('/api/v1/accounts').set('token', token2).end((err, res) => {
-      expect(res.statusCode).to.equal(404);
       done();
     });
   });
@@ -142,30 +135,28 @@ describe('Accounts Test', () => {
       type: 'saving'
     };
 
-    _chai2.default.request(_app2.default).post('/api/v1/account').set('token', token2).send(newAcc).end((err, res) => {
-      accountNumber = res.body.data.accountnumber;
+    _chai2.default.request(_app2.default).post('/api/v1/user/account').set('token', token2).send(newAcc).end((err, res) => {
+      accountNumber = res.body.data.accountNumber;
       expect(res.statusCode).to.equal(201);
       done();
     });
   });
   it('it should Accounts token error', done => {
     const newAcc = {
-      openingbalance: 897657,
       type: 'saving'
     };
 
-    _chai2.default.request(_app2.default).post('/api/v1/account').set('token', 'sdfghjhsgfwdvwsqsqdecvfvfv').send(newAcc).end((err, res) => {
+    _chai2.default.request(_app2.default).post('/api/v1/user/account').set('token', 'sdfghjhsgfwdvwsqsqdecvfvfv').send(newAcc).end((err, res) => {
       expect(res.statusCode).to.equal(401);
       done();
     });
   });
-  it('it should Accounts created', done => {
+  it('it should token error', done => {
     const newAcc = {
-      openingbalance: 897657,
       type: 'saving'
     };
 
-    _chai2.default.request(_app2.default).post('/api/v1/account').set('tokehsn', token2).send(newAcc).end((err, res) => {
+    _chai2.default.request(_app2.default).post('/api/v1/user/account').set('tokehsn', token2).send(newAcc).end((err, res) => {
       expect(res.statusCode).to.equal(401);
       done();
     });
@@ -231,25 +222,25 @@ describe('Accounts Test', () => {
     });
   });
   it('it should return no access', done => {
-    _chai2.default.request(_app2.default).get('/api/v1/accounts/3456789').set('token', token).end((err, res) => {
+    _chai2.default.request(_app2.default).get('/api/v1/user/accounts/3456789').set('token', token).end((err, res) => {
       expect(res.statusCode).to.equal(403);
       done();
     });
   });
   it('it should return params error', done => {
-    _chai2.default.request(_app2.default).get('/api/v1/accounts/345jhgd').set('token', token2).end((err, res) => {
+    _chai2.default.request(_app2.default).get('/api/v1/user/accounts/345jhgd').set('token', token2).end((err, res) => {
       expect(res.statusCode).to.equal(400);
       done();
     });
   });
   it('it should return no Account found', done => {
-    _chai2.default.request(_app2.default).get('/api/v1/accounts/3454567').set('token', token2).end((err, res) => {
+    _chai2.default.request(_app2.default).get('/api/v1/user/accounts/3454567').set('token', token2).end((err, res) => {
       expect(res.statusCode).to.equal(404);
       done();
     });
   });
   it('it should return a specific account', done => {
-    _chai2.default.request(_app2.default).get(`/api/v1/accounts/${accountNumber}`).set('token', token2).end((err, res) => {
+    _chai2.default.request(_app2.default).get(`/api/v1/user/accounts/${accountNumber}`).set('token', token2).end((err, res) => {
       expect(res.statusCode).to.equal(200);
       done();
     });
@@ -333,7 +324,7 @@ describe('Accounts Test', () => {
     });
   });
   it('it should return delete successfuly', done => {
-    _chai2.default.request(_app2.default).delete(`/api/v1/accounts/${accountNumber}`).set('token', token2).end((err, res) => {
+    _chai2.default.request(_app2.default).delete(`/api/v1/accounts/${accounteNumber}`).set('token', token2).end((err, res) => {
       expect(res.statusCode).to.equal(200);
       done();
     });
@@ -355,8 +346,8 @@ describe('Accounts Test', () => {
       type: 'saving'
     };
 
-    _chai2.default.request(_app2.default).post('/api/v1/account').set('token', token2).send(newAcc).end((err, res) => {
-      accountNumber = res.body.data.accountnumber;
+    _chai2.default.request(_app2.default).post('/api/v1/user/account').set('token', token2).send(newAcc).end((err, res) => {
+      accountNumber = res.body.data.accountNumber;
       expect(res.statusCode).to.equal(201);
       done();
     });

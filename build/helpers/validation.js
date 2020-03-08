@@ -13,13 +13,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 class UserValidator {
   static admin(user) {
     const schema = _joi2.default.object().keys({
-      firstname: _joi2.default.string().required().min(3).max(40).trim().pattern(/^[a-zA-Z]+$/),
-      lastname: _joi2.default.string().required().min(3).max(40).trim().regex(/^[a-zA-Z]+$/),
+      firstName: _joi2.default.string().required().min(3).max(40).trim().pattern(/^[a-zA-Z]+$/),
+      lastName: _joi2.default.string().required().min(3).max(40).trim().regex(/^[a-zA-Z]+$/),
       email: _joi2.default.string().email().required().trim(),
       password: _joi2.default.string().required().min(5).trim(),
       confirmPassword: _joi2.default.string().required().min(5).trim(),
-      type: _joi2.default.string().trim().default('client'),
-      isadmin: _joi2.default.boolean().strict().default(false)
+      type: _joi2.default.string().trim().required().default('client'),
+      isAdmin: _joi2.default.boolean().strict().required().default(false)
     });
 
     return schema.validate(user, {
@@ -29,8 +29,8 @@ class UserValidator {
 
   static signup(user) {
     const schema = _joi2.default.object().keys({
-      firstname: _joi2.default.string().required().min(3).max(40).trim().pattern(/^[a-zA-Z]+$/),
-      lastname: _joi2.default.string().required().min(3).max(40).trim().regex(/^[a-zA-Z]+$/),
+      firstName: _joi2.default.string().required().min(3).max(40).trim().pattern(/^[a-zA-Z]+$/),
+      lastName: _joi2.default.string().required().min(3).max(40).trim().regex(/^[a-zA-Z]+$/),
       email: _joi2.default.string().email().required().trim(),
       password: _joi2.default.string().required().min(5).trim(),
       confirmPassword: _joi2.default.string().required().min(5).trim()
@@ -45,6 +45,27 @@ class UserValidator {
     const schema = _joi2.default.object().keys({
       email: _joi2.default.string().email().required().trim(),
       password: _joi2.default.string().required().trim()
+    });
+
+    return schema.validate(user, {
+      abortEarly: false
+    });
+  }
+
+  static email(user) {
+    const schema = _joi2.default.object().keys({
+      email: _joi2.default.string().email().required().trim()
+    });
+
+    return schema.validate(user, {
+      abortEarly: false
+    });
+  }
+
+  static reset(user) {
+    const schema = _joi2.default.object().keys({
+      password: _joi2.default.string().required().trim(),
+      confirmPassword: _joi2.default.string().required().trim()
     });
 
     return schema.validate(user, {

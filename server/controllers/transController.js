@@ -1,5 +1,5 @@
 import uuidv4 from "uuid/v4";
-import mailer from '../helpers/mailer'
+import mailer from '../helpers/mailer';
 import responseHandler from "../helpers/responseHandler";
 import Methods from "../helpers/dbMethods";
 
@@ -46,14 +46,8 @@ export default class staffController {
         [uuid,'debit',id,req.user.userid,amount,userAcc['0'].balance,newAmount],
         '*') 
 
-        
-        mailer.main(user['0'],{
-            transactionId: trans.transid,
-            accountNumber: id,
-            cashier: req.user.userid,
-            transactionType: 'debit',
-            accountBalance: newAmount
-        })
+        mailer.main(user['0'],trans)
+        mailer.sendSms(`Old Balance:${trans.oldbalance} ,New Balance: ${trans.newbalance}`)
 
         const Acc = await Methods.update('accounts',`balance='${newAmount}',status='active'`,`accountnumber='${id}'`,'*');
         
@@ -67,7 +61,7 @@ export default class staffController {
         return responseHandler.send(res);
     }
     
-    static async credit(req,res){
+    static async credit(req,res){``
 		const {amount} = req.body;
 		const id = req.params.accounteNumber;
         const uuid  = uuidv4();
@@ -101,16 +95,11 @@ export default class staffController {
         const trans = await Methods.insert('transactions',
         'transid,type,accountnumber,cashier,amount,oldbalance,newbalance',
         "$1,$2,$3,$4,$5,$6,$7",
-        [uuid,'debit',id,req.user.userid,amount,userAcc['0'].balance,newAmount],
+        [uuid,'credit',id,req.user.userid,amount,userAcc['0'].balance,newAmount],
         '*')
 
-        mailer.main(user['0'],{
-            transactionId: trans.transid,
-            accountNumber: id,
-            cashier: req.user.userid,
-            transactionType: 'debit',
-            accountBalance: newAmount
-        })
+        mailer.main(user['0'],trans)
+        mailer.sendSms(`Old Balance:${trans.oldbalance} ,New Balance: ${trans.newbalance}`)
 
         const Acc = await Methods.update('accounts',`balance='${newAmount}',status='active'`,`accountnumber='${id}'`,'*');
         
@@ -118,7 +107,7 @@ export default class staffController {
             transactionId: trans.transid,
             accountNumber: id,
             cashier: req.user.userid,
-            transactionType: 'debit',
+            transactionType: 'credit',
             accountBalance: newAmount
         });
         return responseHandler.send(res);
@@ -142,27 +131,14 @@ export default class staffController {
     
     static async specificTrans(req,res){
         const id = req.params.transId;
-        let trans;
+
         let  author = await Methods.select('*','users',`userid='${req.user.userid}'`);
 
-        if(!author['0'].isadmin&&author['0'].type!=="staff"){
-
-        trans = await Methods.select('*','transactions',`transid='${id}'`);
+        const trans = await Methods.select('*','transactions',`transid='${id}'`);
 
         if (!trans['0']){
         responseHandler.error(404,new Error('Transaction Not Found'));
-        return responseHandler.send(res);
-        }else{
-            const Acc = method.select('*','account',`owner='${req.user.userid}'`)
-            if(!user['0']){
-                responseHandler.error(404,new Error('No account found'))
-                return responseHandler.send(res)
-            }
-
-            Acc.foreach(async (el) => {
-                trans = await Method.select('*','transactions','accountnumber='${el}''')
-            })
-
+        return responseHandler.send(res)
         }
           
 	  	responseHandler.successful(200,'Transaction fetch successful',{data: trans['0']});

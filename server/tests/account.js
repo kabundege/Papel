@@ -15,8 +15,8 @@ describe('Accounts Test', () => {
 
   it('it should return account created', (done) => {
     const newUser = {
-      firstname: 'kabundege',
-      lastname: 'kwizera',
+      firstName: 'kabundege',
+      lastName: 'kwizera',
       email: 'christophe@gmail.com',
       password:'aPassword123!',
       confirmPassword:'aPassword123!'
@@ -49,7 +49,7 @@ describe('Accounts Test', () => {
 
   it('login successful',(done) => {
       const loggedUser = {
-        email: 'kabundege@gmail.com',
+        email: 'christophekwizera1@gmail.com',
         password: 'aPassword123!'
       };
       chai
@@ -65,8 +65,8 @@ describe('Accounts Test', () => {
 
     it('it should return account created', (done) => {
       const newUser = {
-        firstname: 'kabundege',
-        lastname: 'kwizera',
+        firstName: 'kabundege',
+        lastName: 'kwizera',
         email: 'kwizera@gmail.com',
         password:'aPassword123!',
         confirmPassword:'aPassword123!',
@@ -106,7 +106,7 @@ describe('Accounts Test', () => {
     };
     chai
       .request(app)
-      .post('/api/v1/account')
+      .post('/api/v1/user/account')
       .send(newAcc)
       .end((err, res) => {
         expect(res.statusCode).to.equal(401);
@@ -392,7 +392,7 @@ describe('Accounts Test', () => {
     chai
       .request(app)
       .patch('/api/v1/account/4dfgh56')
-      .set('token',token2)
+      .set('token',token3)
       .send(payload)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -409,7 +409,7 @@ describe('Accounts Test', () => {
     chai
       .request(app)
       .patch(`/api/v1/account/${accountNumber}`)
-      .set('token',token2)
+      .set('token',token3)
       .send(payload)
       .end((err, res) => {
         expect(res.statusCode).to.equal(400);
@@ -426,7 +426,7 @@ describe('Accounts Test', () => {
     chai
       .request(app)
       .patch('/api/v1/account/9843')
-      .set('token',token2)
+      .set('token',token3)
       .send(payload)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);

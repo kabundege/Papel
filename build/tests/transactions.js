@@ -57,7 +57,7 @@ describe('Transaction Test', () => {
     };
 
     _chai2.default.request(_app2.default).post('/api/v1/account').set('token', token2).send(newAcc).end((err, res) => {
-      accountNumber = res.body.data.accountnumber * 1;
+      accountNumber = res.body.data.accountNumber * 1;
       expect(res.statusCode).to.equal(201);
       done();
     });

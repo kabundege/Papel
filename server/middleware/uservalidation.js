@@ -24,6 +24,16 @@ export default class userValidatorMid {
     return next()
   }
 
+  static email(req, res, next) {
+    const { error } = UserValidator.email(req.body);
+    if (error) {
+      const newMessage = errorString(error);
+      responseHandler.error(400, new Error(newMessage));
+      return responseHandler.send(res);
+    }
+    return next()
+  }
+
   static admin(req, res, next) {
     const { error } = UserValidator.admin(req.body);
     if (error) {

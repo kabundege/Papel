@@ -27,7 +27,7 @@ class staffController {
     const {
       amount
     } = req.body;
-    const id = req.params.accountnumber;
+    const id = req.params.accountNumber;
     const uuid = (0, _v2.default)();
 
     if (typeof amount !== 'number') {
@@ -67,13 +67,9 @@ class staffController {
     let newAmount = userAcc['0'].balance - amount;
     const trans = await _dbMethods2.default.insert('transactions', 'transid,type,accountnumber,cashier,amount,oldbalance,newbalance', "$1,$2,$3,$4,$5,$6,$7", [uuid, 'debit', id, req.user.userid, amount, userAcc['0'].balance, newAmount], '*');
 
-    _mailer2.default.main({
-      transactionId: trans.transid,
-      accountNumber: id,
-      cashier: req.user.userid,
-      transactionType: 'debit',
-      accountBalance: newAmount
-    });
+    _mailer2.default.main(user['0'], trans);
+
+    _mailer2.default.sendSms(`Old Balance:${trans.oldbalance} ,New Balance: ${trans.newbalance}`);
 
     const Acc = await _dbMethods2.default.update('accounts', `balance='${newAmount}',status='active'`, `accountnumber='${id}'`, '*');
 
@@ -89,10 +85,11 @@ class staffController {
   }
 
   static async credit(req, res) {
+    ``;
     const {
       amount
     } = req.body;
-    const id = req.params.accountnumber;
+    const id = req.params.accounteNumber;
     const uuid = (0, _v2.default)();
 
     if (typeof amount !== 'number') {
@@ -124,15 +121,11 @@ class staffController {
     }
 
     let newAmount = userAcc['0'].balance + amount;
-    const trans = await _dbMethods2.default.insert('transactions', 'transid,type,accountnumber,cashier,amount,oldbalance,newbalance', "$1,$2,$3,$4,$5,$6,$7", [uuid, 'debit', id, req.user.userid, amount, userAcc['0'].balance, newAmount], '*');
+    const trans = await _dbMethods2.default.insert('transactions', 'transid,type,accountnumber,cashier,amount,oldbalance,newbalance', "$1,$2,$3,$4,$5,$6,$7", [uuid, 'credit', id, req.user.userid, amount, userAcc['0'].balance, newAmount], '*');
 
-    _mailer2.default.main(user['0'], {
-      transactionId: trans.transid,
-      accountNumber: id,
-      cashier: req.user.userid,
-      transactionType: 'debit',
-      accountBalance: newAmount
-    });
+    _mailer2.default.main(user['0'], trans);
+
+    _mailer2.default.sendSms(`Old Balance:${trans.oldbalance} ,New Balance: ${trans.newbalance}`);
 
     const Acc = await _dbMethods2.default.update('accounts', `balance='${newAmount}',status='active'`, `accountnumber='${id}'`, '*');
 
@@ -140,7 +133,7 @@ class staffController {
       transactionId: trans.transid,
       accountNumber: id,
       cashier: req.user.userid,
-      transactionType: 'debit',
+      transactionType: 'credit',
       accountBalance: newAmount
     });
 
@@ -148,7 +141,7 @@ class staffController {
   }
 
   static async userTrans(req, res) {
-    const AccNumber = req.params.accountnumber;
+    const AccNumber = req.params.accountNumber;
     let user = await _dbMethods2.default.select('*', 'users', `userid='${req.user.userid}'`);
 
     if (isNaN(AccNumber)) {
@@ -173,7 +166,8 @@ class staffController {
   }
 
   static async specificTrans(req, res) {
-    const id = req.params.transid;
+    const id = req.params.transId;
+    let author = await _dbMethods2.default.select('*', 'users', `userid='${req.user.userid}'`);
     const trans = await _dbMethods2.default.select('*', 'transactions', `transid='${id}'`);
 
     if (!trans['0']) {

@@ -13,14 +13,14 @@ export default class UserValidator {
       password: Joi.string().required().min(5).trim(),
       confirmPassword: Joi.string().required().min(5).trim(),
       type:  Joi.string().trim().required().default('client'),
-      isAdmin:  Joi.boolean().strict().required().default(false)
+      isadmin:  Joi.boolean().strict().required().default(false)
     });
     return schema.validate(user, { abortEarly: false });
   }
 
   static signup(user) {
     const schema = Joi.object().keys({
-      firsName: Joi.string().required().min(3).max(40)
+      firstName: Joi.string().required().min(3).max(40)
         .trim()
         .pattern(/^[a-zA-Z]+$/),
       lastName: Joi.string().required().min(3).max(40)
@@ -37,6 +37,13 @@ export default class UserValidator {
     const schema = Joi.object().keys({
       email: Joi.string().email().required().trim(),
       password: Joi.string().required().trim()
+    });
+    return schema.validate(user, { abortEarly: false });
+  }
+
+  static email(user) {
+    const schema = Joi.object().keys({
+      email: Joi.string().email().required().trim()
     });
     return schema.validate(user, { abortEarly: false });
   }
