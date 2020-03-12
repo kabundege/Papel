@@ -2,15 +2,18 @@ import pool from "./config/dbConfig";
 
 const table = `DROP TABLE IF EXISTS users,transactions,accounts CASCADE;
     CREATE TABLE users (
-      userid UUID NOT NULL PRIMARY KEY,
+      userid UUID PRIMARY KEY,
       firstname VARCHAR(40) NOT NULL,
-      lastname VARCHAR(40) NOT NULL,
-      email TEXT NOT NULL UNIQUE,
-      password TEXT NOT NULL,
+      lastname VARCHAR(40) ,
+      email TEXT UNIQUE,
+      password TEXT ,
       type VARCHAR(40) default 'client',
-      isadmin BOOLEAN default 'false' 
+      isadmin BOOLEAN default 'false',
+      googleid VARCHAR(100),
+      githubid VARCHAR(100),
+      facebookid VARCHAR(100) 
     );
-    insert into users values ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed','christope','kwizera','christophekwizera1@gmail.com','$2a$10$pVqBtKRnH9QSsblCCPIK4uyWstH8EupqTDAhQStzw/q4S7OHUhAFK','staff',true);
+    insert into users values ('1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed','kabundege','kwizera','kabundege2@outlook.com','$2a$10$pVqBtKRnH9QSsblCCPIK4uyWstH8EupqTDAhQStzw/q4S7OHUhAFK','staff',true,' ',' ',' ');
     CREATE TABLE accounts (
       accid UUID NOT NULL PRIMARY KEY,
       accountnumber BIGINT NOT NULL UNIQUE,

@@ -49,7 +49,7 @@ describe('Accounts Test', () => {
 
   it('login successful',(done) => {
       const loggedUser = {
-        email: 'christophekwizera1@gmail.com',
+        email: 'kabundege2@outlook.com',
         password: 'aPassword123!'
       };
       chai
@@ -441,7 +441,7 @@ describe('Accounts Test', () => {
     chai
       .request(app)
       .patch(`/api/v1/account/${accountNumber}`)
-      .set('token',token2)
+      .set('token',token3)
       .send(payload)
       .end((err, res) => {
         expect(res.statusCode).to.equal(200);
@@ -478,17 +478,6 @@ describe('Accounts Test', () => {
       .set('token',token2)
       .end((err, res) => {
         expect(res.statusCode).to.equal(404);
-        done();
-      });
-  });
-
-  it('it should return delete successfuly', (done) => {
-    chai
-      .request(app)
-      .delete(`/api/v1/accounts/${accounteNumber}`)
-      .set('token',token2)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(200);
         done();
       });
   });
@@ -540,6 +529,17 @@ describe('Accounts Test', () => {
         expect(res.statusCode).to.equal(200);
         done();
       });
-  }); 
+  });
+  
+  it('it should return delete successfuly', (done) => {
+    chai
+      .request(app)
+      .delete(`/api/v1/accounts/${accountNumber}`)
+      .set('token',token2)
+      .end((err, res) => {
+        expect(res.statusCode).to.equal(200);
+        done();
+      });
+  });
 
 });

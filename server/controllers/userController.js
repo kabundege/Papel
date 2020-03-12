@@ -1,12 +1,16 @@
 import bcrypt from 'bcryptjs';
 import uuidv4 from 'uuid/v4';
 import random from 'random-int';
+import passport from 'passport'
 import emailValidator from 'email-validator';
 import passowrdValidator from 'joi-password-complexity';
 import mailer from '../helpers/mailer'
 import tokenProvider from '../helpers/tokenProvider';
 import responseHandler from '../helpers/responseHandler';
 import Methods from '../helpers/dbMethods';
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export default class userController {
   static async signup(req, res) {
@@ -46,7 +50,7 @@ export default class userController {
         user: newUser,
       });
       return responseHandler.send(res);
-    }
+  }
 
   static async reset(req, res) {
     const {
@@ -61,6 +65,7 @@ export default class userController {
       responseHandler.error(400, new Error('Password example : aPassword123!'));
       return responseHandler.send(res);
     }
+    
     if (password != confirmPassword) {
       responseHandler.error(400, new Error('UnMaching Password'));
       return responseHandler.send(res);
@@ -83,7 +88,7 @@ export default class userController {
         NewPassword: password,
       });
       return responseHandler.send(res);
-    }
+  }
 
   static async email(req,res){
     const {email} = req.body;
@@ -104,6 +109,60 @@ export default class userController {
     responseHandler.successful(200,'Check your email')
     return responseHandler.send(res)
 
+  }
+
+  static async auth(req,res){
+    let firstname, lastname, oauthUser ;
+    const userid = uuidv4();
+    
+    if(req.user.provider === 'github'){
+        firstname = req.user.displayName
+    }else{
+        firstname = req.user.name.familyName
+        lastname = req.user.name.givenName
+    }
+    const loginUser = await Methods.select(
+      "*",
+      "users", 
+      `${req.user.provider}id='${req.user.id}'`);
+    const exist = await Methods.select(
+      "*",
+      "users", 
+      `email='${req.user.emails[0].value}'`);
+  
+      if (loginUser[0]) {
+        oauthUser = loginUser[0]
+      }else if(exist[0]){
+          oauthUser = exist[0]
+        }else{
+         
+        const newUser = await Methods.insert(
+          'users',
+          `userid,firstname,lastname,email,type,isadmin,${req.user.provider}id`,
+          '$1,$2,$3,$4,$5,$6,$7',
+          [userid, firstname, lastname, req.user.emails[0].value, 'client', false,req.user.id],
+          `'userid,firstname,lastname,email,${req.user.provider}'`,
+        );
+        oauthUser = newUser
+    }
+
+    const token = tokenProvider({
+      userid: oauthUser.userid
+    });
+    
+    responseHandler.successful(200, "User logged in successfully", {
+      token,
+      id: oauthUser.userid,
+      firstName: oauthUser.firstname,
+      email: oauthUser.email,
+      lastName: oauthUser.lastname
+    });
+    return responseHandler.send(res);
+  }
+
+  static async out(req,res){
+      req.logOut()
+      res.redirect('/index')
   }
 
   static async signin(req, res) {
