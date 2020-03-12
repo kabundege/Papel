@@ -4,7 +4,7 @@ const mailer  = async () => {
     const payload = {
       email: email
     }
-    const res = await fetch('http://localhost:1999/api/v1/auth/email',{
+    const res = await fetch('https://papel--andela.herokuapp.com/api/v1/auth/email',{
       method: 'POST', 
       headers: {
         Accepted:'appication/json',
@@ -46,7 +46,7 @@ const reset  = async () => {
     confirmPassword: confirmPassword
   }
 
-  const res = await fetch(`http://localhost:1999/api/v1/auth/reset`,{
+  const res = await fetch(`https://papel--andela.herokuapp.com/api/v1/auth/reset`,{
     method: 'PATCH', 
     headers: {
       "token":`${token}`,

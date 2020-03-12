@@ -61,7 +61,7 @@ export default class mail {
         const Message = `
         <div  style="background: #581b98;padding:10px;border-radius:5px;width:80%">
             <p><span style="background:#46c3db;color:white;border-top-left-radius:3px;border-bottom-left-radius:3px;padding:5px;">To reset your Password </span>
-            <span style="background:white;border-top-right-radius:3px;border-bottom-right-radius:3px;padding:5px;color:#000"><a href="http://localhost:1999/reset.html?token=${token}">Click here</a><span></p>
+            <span style="background:white;border-top-right-radius:3px;border-bottom-right-radius:3px;padding:5px;color:#000"><a href="https://papel--andela.herokuapp.com/reset.html?token=${token}">Click here</a><span></p>
         </div>`;
 
         let transporter = nodemailer.createTransport({
