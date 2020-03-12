@@ -3,55 +3,47 @@ import Joi from '@hapi/joi';
 export default class UserValidator {
   static admin(user) {
     const schema = Joi.object().keys({
-      firstName: Joi.string().required().min(3).max(40)
-        .trim()
-        .pattern(/^[a-zA-Z]+$/),
-      lastName: Joi.string().required().min(3).max(40)
-        .trim()
-        .regex(/^[a-zA-Z]+$/),
-      email: Joi.string().email().required().trim(),
-      password: Joi.string().required().min(5).trim(),
-      confirmPassword: Joi.string().required().min(5).trim(),
-      type:  Joi.string().trim().required().default('client'),
-      isadmin:  Joi.boolean().strict().required().default(false)
+      firstName: Joi.string().required().trim().error(new Error("Enter the firstname")),
+      lastName: Joi.string().required().trim().error(new Error("Enter the LastName")),
+      email: Joi.string().email().required().trim().error(new Error("Email must be valid")),
+      password: Joi.string().required().min(5).trim().error(new Error("Enter the password")),
+      confirmPassword: Joi.string().required().min(5).trim().error(new Error("Enter the confirm password")),
+      type:  Joi.string().trim().required().default('client').error(new Error("Enter specify the account type")),
+      isadmin:  Joi.boolean().strict().required().default(false).error(new Error("Enter the admin createria"))
     });
     return schema.validate(user, { abortEarly: false });
   }
 
   static signup(user) {
     const schema = Joi.object().keys({
-      firstName: Joi.string().required().min(3).max(40)
-        .trim()
-        .pattern(/^[a-zA-Z]+$/),
-      lastName: Joi.string().required().min(3).max(40)
-        .trim()
-        .regex(/^[a-zA-Z]+$/),
-      email: Joi.string().email().required().trim(),
-      password: Joi.string().required().min(5).trim(),
-      confirmPassword: Joi.string().required().min(5).trim()
+      firstName: Joi.string().required().trim().error(new Error("Enter the firstname")),
+      lastName: Joi.string().required().trim().error(new Error("Enter the LastName")),
+      email: Joi.string().email().required().trim().error(new Error("Email must be valid")),
+      password: Joi.string().required().min(5).trim().error(new Error("Enter the password")),
+      confirmPassword: Joi.string().required().min(5).trim().error(new Error("Enter the confirm password"))
     });
     return schema.validate(user, { abortEarly: false });
   }
 
   static signin(user) {
     const schema = Joi.object().keys({
-      email: Joi.string().email().required().trim(),
-      password: Joi.string().required().trim()
+      email: Joi.string().email().required().trim().error(new Error("Email must be valid")),
+      password: Joi.string().required().min(5).trim().error(new Error("Enter the password")),
     });
     return schema.validate(user, { abortEarly: false });
   }
 
   static email(user) {
     const schema = Joi.object().keys({
-      email: Joi.string().email().required().trim()
+      email: Joi.string().email().required().trim().error(new Error("Email must be valid"))
     });
     return schema.validate(user, { abortEarly: false });
   }
 
   static reset(user) {
     const schema = Joi.object().keys({
-      password: Joi.string().required().trim(),
-      confirmPassword:Joi.string().required().trim()
+      password: Joi.string().required().min(5).trim().error(new Error("Enter the password")),
+      confirmPassword: Joi.string().required().min(5).trim().error(new Error("Enter the confirm password"))
     });
     return schema.validate(user, { abortEarly: false });
   }

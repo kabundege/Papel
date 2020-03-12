@@ -50,13 +50,11 @@ export default class mail {
             apiSecret: process.env.SMS_API_SECRET,
           });
     
-          const from = 'Kabundege Andela';
-          const to = '+250784824295';
-          const text = `${transa.type } transaction`;
-          nexmo.message.sendSms(from, to, text);
-        } catch (err) {
-          return err;
-        }
+        //   const from = 'Kabundege Andela';
+        //   const to = '+250784824295';
+        //   const text = `${transa.type } transaction`;
+          nexmo.message.sendSms('Kabundege Andela', '+250784824295', `${transa.type } transaction`);
+        } catch (err) {}
     }
 
     static async reset(user,token){

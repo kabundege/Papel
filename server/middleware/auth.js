@@ -26,13 +26,7 @@ export default class auth {
   }
 
   static async reset(req, res, next) {
-    const token = req.header('token')
-
-    if (!token) {
-      responseHandler.error(401, new Error("No Token Provided"));
-      return responseHandler.send(res);
-    }
- 
+    const token = req.header('token') 
     try {
       const decoded = jwt.verify(token, process.env.JWTPRIVATEKEY);
       req.user = decoded;
