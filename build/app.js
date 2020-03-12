@@ -12,6 +12,10 @@ var _bodyParser = require("body-parser");
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
+var _cors = require("cors");
+
+var _cors2 = _interopRequireDefault(_cors);
+
 var _user = require("./routes/user");
 
 var _user2 = _interopRequireDefault(_user);
@@ -27,6 +31,7 @@ var _transactions2 = _interopRequireDefault(_transactions);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express2.default)();
+app.use((0, _cors2.default)());
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({
   extended: true

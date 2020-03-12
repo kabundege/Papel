@@ -147,6 +147,8 @@ h2 a {
   }
   .login input[type="button"]:hover {
     background: rgba(255, 255, 255, 0.3);
+    color: white;
+    border:1px solid white
   }
   .readmore {
     width: 30%;

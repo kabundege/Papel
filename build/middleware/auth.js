@@ -48,6 +48,35 @@ class auth {
     }
   }
 
+  static async reset(req, res, next) {
+    const token = req.params.token;
+
+    if (!token) {
+      _responseHandler2.default.error(401, new Error("No Token Provided"));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    try {
+      const decoded = _jsonwebtoken2.default.verify(token, process.env.JWTPRIVATEKEY);
+
+      req.user = decoded;
+      let author = await _dbMethods2.default.select('*', 'users', `userid='${req.user.userid}'`);
+
+      if (!author['0']) {
+        _responseHandler2.default.error(401, new Error('Token has expired'));
+
+        return _responseHandler2.default.send(res);
+      }
+
+      next();
+    } catch (ex) {
+      _responseHandler2.default.error(401, new Error("token unAuthorized"));
+
+      return _responseHandler2.default.send(res);
+    }
+  }
+
 }
 
 exports.default = auth;

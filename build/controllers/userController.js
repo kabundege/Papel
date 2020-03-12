@@ -20,6 +20,14 @@ var _emailValidator = require("email-validator");
 
 var _emailValidator2 = _interopRequireDefault(_emailValidator);
 
+var _joiPasswordComplexity = require("joi-password-complexity");
+
+var _joiPasswordComplexity2 = _interopRequireDefault(_joiPasswordComplexity);
+
+var _mailer = require("../helpers/mailer");
+
+var _mailer2 = _interopRequireDefault(_mailer);
+
 var _tokenProvider = require("../helpers/tokenProvider");
 
 var _tokenProvider2 = _interopRequireDefault(_tokenProvider);
@@ -37,17 +45,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 class userController {
   static async signup(req, res) {
     const {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       password,
-      confirmPassword,
-      type,
-      isadmin
+      confirmPassword
     } = req.body;
+    const {
+      error
+    } = (0, _joiPasswordComplexity2.default)().validate(password);
+
+    if (error) {
+      _responseHandler2.default.error(400, new Error('password must have lowercase,uppercase,symbols and numbers'));
+
+      return _responseHandler2.default.send(res);
+    }
 
     if (password != confirmPassword) {
-      _responseHandler2.default.error(409, new Error('UnMaching Password'));
+      _responseHandler2.default.error(400, new Error('UnMaching Password'));
 
       return _responseHandler2.default.send(res);
     }
@@ -62,7 +77,7 @@ class userController {
     }
 
     const hashedPassword = await _bcryptjs2.default.hash(password, 10);
-    const newUser = await _dbMethods2.default.insert('users', 'userid,firstname,lastname,email,password,type,isadmin', '$1,$2,$3,$4,$5,$6,$7', [userid, firstname.trim(), lastname.trim(), email.trim(), hashedPassword, type, isadmin], 'userid,firstname,lastname,email');
+    const newUser = await _dbMethods2.default.insert('users', 'userid,firstname,lastname,email,password,type,isadmin', '$1,$2,$3,$4,$5,$6,$7', [userid, firstName.trim(), lastName.trim(), email.trim(), hashedPassword, 'client', false], 'userid,firstname,lastname,email');
     const token = (0, _tokenProvider2.default)({
       userid: newUser.userid
     });
@@ -71,6 +86,75 @@ class userController {
       token,
       user: newUser
     });
+
+    return _responseHandler2.default.send(res);
+  }
+
+  static async reset(req, res) {
+    const {
+      password,
+      confirmPassword
+    } = req.body;
+    const id = req.user.userid; //req.params.email;
+
+    const loginUser = await _dbMethods2.default.select("*", "users", `userid='${id}'`);
+
+    if (!loginUser['0']) {
+      _responseHandler2.default.error(404, new Error("incorrect credentials"));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    const {
+      error
+    } = (0, _joiPasswordComplexity2.default)().validate(password);
+
+    if (error) {
+      _responseHandler2.default.error(400, new Error('password must have lowercase,uppercase,symbols and numbers'));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    if (password != confirmPassword) {
+      _responseHandler2.default.error(400, new Error('UnMaching Password'));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    const hashedPassword = await _bcryptjs2.default.hash(password, 10);
+    const resetUser = await _dbMethods2.default.update('users', `password = '${hashedPassword}'`, `userid='${id}'`, 'userid,firstname,lastname,email,password');
+    const token = (0, _tokenProvider2.default)({
+      userid: resetUser.userid
+    });
+
+    _responseHandler2.default.successful(200, 'reset successful ', {
+      token,
+      NewPassword: password
+    });
+
+    return _responseHandler2.default.send(res);
+  }
+
+  static async email(req, res) {
+    const {
+      email
+    } = req.body;
+    const user = await _dbMethods2.default.select('*', 'users', `email='${email}'`);
+
+    if (!user['0']) {
+      _responseHandler2.default.error(404, new Error("Email Not Found"));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    console.log(user['0'].email);
+    const token = (0, _tokenProvider2.default)({
+      userid: user['0'].userid
+    });
+
+    _mailer2.default.reset(user['0'], token);
+
+    _responseHandler2.default.successful(200, 'Check your email');
 
     return _responseHandler2.default.send(res);
   }
@@ -109,9 +193,65 @@ class userController {
     return _responseHandler2.default.send(res);
   }
 
+  static async admin(req, res) {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword,
+      type,
+      isAdmin
+    } = req.body;
+    const {
+      error
+    } = (0, _joiPasswordComplexity2.default)().validate(password);
+
+    if (error) {
+      _responseHandler2.default.error(400, new Error('password must have lowercase, uppercase, symbols and a number'));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    let author = await _dbMethods2.default.select('*', 'users', `userid='${req.user.userid}'`);
+
+    if (!author['0'].isadmin) {
+      _responseHandler2.default.error(403, new Error('No Access'));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    if (password != confirmPassword) {
+      _responseHandler2.default.error(400, new Error('UnMaching Password'));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    const userid = (0, _v2.default)();
+    const signupUser = await _dbMethods2.default.select("*", "users", `email='${email}'`);
+
+    if (signupUser['0']) {
+      _responseHandler2.default.error(409, new Error('user Already exists'));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    const hashedPassword = await _bcryptjs2.default.hash(password, 10);
+    const newUser = await _dbMethods2.default.insert('users', 'userid,firstname,lastname,email,password,type,isAdmin', '$1,$2,$3,$4,$5,$6,$7', [userid, firstName.trim(), lastName.trim(), email.trim(), hashedPassword, type, isAdmin], 'userid,firstname,lastname,email');
+    const token = (0, _tokenProvider2.default)({
+      userid: newUser.userid
+    });
+
+    _responseHandler2.default.successful(201, 'user created successful', {
+      token,
+      user: newUser
+    });
+
+    return _responseHandler2.default.send(res);
+  }
+
   static async createAcc(req, res) {
     const {
-      openingbalance,
       type
     } = req.body;
     let accnumber = (0, _randomInt2.default)(10000000, 1000000000);
@@ -127,7 +267,7 @@ class userController {
     const newAcc = await _dbMethods2.default.insert("accounts", "accid,accountnumber,owner,type,balance", "$1,$2,$3,$4,$5", [accid, accnumber, user['0'].userid, type, 0], "accountnumber,type,balance");
 
     _responseHandler2.default.successful(201, "user created successful", {
-      accountnumber: newAcc.accountnumber,
+      accountNumber: newAcc.accountnumber,
       firstName: user["0"].firstname,
       lastName: user["0"].lastname,
       type: newAcc.type,

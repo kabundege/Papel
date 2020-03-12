@@ -25,8 +25,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const route = _express2.default.Router();
 
 route.get("/api/v1/accounts", _auth2.default.access, _staffController2.default.accounts);
-route.get("/api/v1/accounts/:accountenumber", _auth2.default.access, _staffController2.default.specificAccount);
+route.get("/api/v1/user/accounts/:accountNumber", _auth2.default.access, _staffController2.default.specificAccount);
 route.get("/api/v1/account?:params", _auth2.default.access, _staffController2.default.createriaAccounts);
-route.patch("/api/v1/account/:accountenumber", _auth2.default.access, _accountValidation2.default.status, _staffController2.default.activateDeactivate);
-route.delete("/api/v1/accounts/:accountenumber", _auth2.default.access, _staffController2.default.Erase);
+route.patch("/api/v1/account/:accountNumber", _auth2.default.access, _accountValidation2.default.status, _staffController2.default.activateDeactivate);
+route.delete("/api/v1/accounts/:accounteNumber", _auth2.default.access, _staffController2.default.Erase);
 exports.default = route;

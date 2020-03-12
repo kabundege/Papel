@@ -15,6 +15,10 @@ body{
     color:white;
     font-size:30px;
   }
+  #error{
+    color:black;
+    font-weight: bold;
+  }
   .logo{
     line-height: 100px;
     float: left;
@@ -149,7 +153,9 @@ body{
         margin-left: 10%;
     }
     .login input[type=button]:hover{
-      background:rgba(255, 255, 255, 0.3)
+      background:rgba(255, 255, 255, 0.3);
+      color: white;
+      border:1px solid white
   }
     .readmore {
       width: 30%;
@@ -198,6 +204,10 @@ body{
       background:url('../images/safe\ \(2\).jpg');
       background-size: cover;
       height:100%
+    }
+    #error{
+      color:white;
+      font-weight: bold;
     }
 
     .show-menu,
@@ -338,6 +348,10 @@ body{
       background-size: cover;
       background-position: initial;
       height:100%
+    }
+    #error{
+      color:black;
+      font-weight: bold;
     }
 
     .show-menu,

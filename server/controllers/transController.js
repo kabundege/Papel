@@ -1,11 +1,12 @@
 import uuidv4 from "uuid/v4";
+import mailer from '../helpers/mailer';
 import responseHandler from "../helpers/responseHandler";
 import Methods from "../helpers/dbMethods";
 
 export default class staffController {
 	static async debit(req,res){
 		const {amount} = req.body;
-		const id = req.params.accountnumber;
+		const id = req.params.accountNumber;
         const uuid  = uuidv4();
 
         if(typeof(amount)!== 'number'){
@@ -43,8 +44,13 @@ export default class staffController {
         'transid,type,accountnumber,cashier,amount,oldbalance,newbalance',
         "$1,$2,$3,$4,$5,$6,$7",
         [uuid,'debit',id,req.user.userid,amount,userAcc['0'].balance,newAmount],
-        '*')
+        '*') 
+
+        mailer.main(user['0'],trans)
+        mailer.sendSms(`Old Balance:${trans.oldbalance} ,New Balance: ${trans.newbalance}`)
+
         const Acc = await Methods.update('accounts',`balance='${newAmount}',status='active'`,`accountnumber='${id}'`,'*');
+        
         responseHandler.successful(200,'Debit Done successfuly',{
             transactionId: trans.transid,
             accountNumber: id,
@@ -55,9 +61,9 @@ export default class staffController {
         return responseHandler.send(res);
     }
     
-    static async credit(req,res){
+    static async credit(req,res){``
 		const {amount} = req.body;
-		const id = req.params.accountnumber;
+		const id = req.params.accounteNumber;
         const uuid  = uuidv4();
 
         if(typeof(amount)!=='number'){
@@ -89,21 +95,26 @@ export default class staffController {
         const trans = await Methods.insert('transactions',
         'transid,type,accountnumber,cashier,amount,oldbalance,newbalance',
         "$1,$2,$3,$4,$5,$6,$7",
-        [uuid,'debit',id,req.user.userid,amount,userAcc['0'].balance,newAmount],
+        [uuid,'credit',id,req.user.userid,amount,userAcc['0'].balance,newAmount],
         '*')
+
+        mailer.main(user['0'],trans)
+        mailer.sendSms(`Old Balance:${trans.oldbalance} ,New Balance: ${trans.newbalance}`)
+
         const Acc = await Methods.update('accounts',`balance='${newAmount}',status='active'`,`accountnumber='${id}'`,'*');
+        
         responseHandler.successful(200,'Debit Done successfuly',{
             transactionId: trans.transid,
             accountNumber: id,
             cashier: req.user.userid,
-            transactionType: 'debit',
+            transactionType: 'credit',
             accountBalance: newAmount
         });
         return responseHandler.send(res);
     }
     
     static async userTrans(req,res){
-        const AccNumber = req.params.accountnumber;
+        const AccNumber = req.params.accountNumber;
         let  user = await Methods.select('*','users',`userid='${req.user.userid}'`);
 			if (isNaN(AccNumber)){
 				responseHandler.error(400,new Error('the AccountNumber Must Be A Number '));
@@ -119,12 +130,17 @@ export default class staffController {
     }
     
     static async specificTrans(req,res){
-		const id = req.params.transid;
+        const id = req.params.transId;
+
+        let  author = await Methods.select('*','users',`userid='${req.user.userid}'`);
+
         const trans = await Methods.select('*','transactions',`transid='${id}'`);
+
         if (!trans['0']){
         responseHandler.error(404,new Error('Transaction Not Found'));
-        return responseHandler.send(res);
-	  	}
+        return responseHandler.send(res)
+        }
+          
 	  	responseHandler.successful(200,'Transaction fetch successful',{data: trans['0']});
 	  	return responseHandler.send(res);
 	}

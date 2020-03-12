@@ -43,19 +43,19 @@ describe('Transaction Test', () => {
         });
     });
 
-    it('it should return Accounts created', (done) => {
-        const newAcc = {
-          type: 'saving'
-        };
-        chai
-          .request(app)
-          .post('/api/v1/account')
-          .set('token',token2)
-          .send(newAcc)
-          .end((err, res) => {
-          accountNumber = res.body.data.accountnumber * 1;
-            expect(res.statusCode).to.equal(201);
-            done();
+    it('it should Accounts created', (done) => {
+      const newAcc = {
+        type: 'saving'
+      };
+      chai
+        .request(app)
+        .post('/api/v1/user/account')
+        .set('token',token2)
+        .send(newAcc)
+        .end((err, res) => {
+          accountNumber=res.body.data.accountNumber
+          expect(res.statusCode).to.equal(201);
+          done();
         });
     });
 
@@ -87,7 +87,7 @@ describe('Transaction Test', () => {
           expect(res.statusCode).to.equal(400);
           done();
       });
-  });
+    });
 
     it('it should return params must be number', (done) => {
       const newAcc = {
@@ -102,37 +102,37 @@ describe('Transaction Test', () => {
           expect(res.statusCode).to.equal(400);
           done();
       });
-  });
-
-  it('it should return amount must be number', (done) => {
-    const newAcc = {
-      amount:'89'
-    };
-    chai
-      .request(app)
-      .post(`/api/v1/transaction/${accountNumber}/credit`)
-      .set('token',token)
-      .send(newAcc)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        done();
     });
-});
 
-  it('it should return params must be number', (done) => {
-    const newAcc = {
-      amount:89
-    };
-    chai
-      .request(app)
-      .post(`/api/v1/transaction/'${accountNumber}'/credit`)
-      .set('token',token)
-      .send(newAcc)
-      .end((err, res) => {
-        expect(res.statusCode).to.equal(400);
-        done();
+    it('it should return amount must be number', (done) => {
+      const newAcc = {
+        amount:'89'
+      };
+      chai
+        .request(app)
+        .post(`/api/v1/transaction/${accountNumber}/credit`)
+        .set('token',token)
+        .send(newAcc)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+      });
     });
-});
+
+    it('it should return params must be number', (done) => {
+      const newAcc = {
+        amount:89
+      };
+      chai
+        .request(app)
+        .post(`/api/v1/transaction/'${accountNumber}'/credit`)
+        .set('token',token)
+        .send(newAcc)
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(400);
+          done();
+      });
+    });
 
     it('it should return validation error', (done) => {
         const newAcc = {
@@ -283,7 +283,7 @@ describe('Transaction Test', () => {
           expect(res.statusCode).to.equal(200);
           done();
       });
-  });
+    });
 
     it('it should return params error', (done) => {
       chai

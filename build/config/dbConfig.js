@@ -17,6 +17,6 @@ _dotenv2.default.config();
 const connectionString = process.env.DATABASE_URL;
 const pool = new _pg.Pool({
   connectionString
-});
-pool.on('connect', () => process.stdout.write('server connected'));
+}); // pool.on('connect', () => process.stdout.write('server connected'));
+
 exports.default = pool;

@@ -35,6 +35,54 @@ class userValidatorMid {
     return next();
   }
 
+  static reset(req, res, next) {
+    const {
+      error
+    } = _validation2.default.reset(req.body);
+
+    if (error) {
+      const newMessage = (0, _error2.default)(error);
+
+      _responseHandler2.default.error(400, new Error(newMessage));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    return next();
+  }
+
+  static email(req, res, next) {
+    const {
+      error
+    } = _validation2.default.email(req.body);
+
+    if (error) {
+      const newMessage = (0, _error2.default)(error);
+
+      _responseHandler2.default.error(400, new Error(newMessage));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    return next();
+  }
+
+  static admin(req, res, next) {
+    const {
+      error
+    } = _validation2.default.admin(req.body);
+
+    if (error) {
+      const newMessage = (0, _error2.default)(error);
+
+      _responseHandler2.default.error(400, new Error(newMessage));
+
+      return _responseHandler2.default.send(res);
+    }
+
+    return next();
+  }
+
   static signin(req, res, next) {
     const {
       error
