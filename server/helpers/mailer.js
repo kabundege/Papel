@@ -50,20 +50,18 @@ export default class mail {
             apiSecret: process.env.SMS_API_SECRET,
           });
     
-          const from = 'Kabundege Andela';
-          const to = '+250784824295';
-          const text = `${transa.type } transaction`;
-          nexmo.message.sendSms(from, to, text);
-        } catch (err) {
-          return err;
-        }
+        //   const from = 'Kabundege Andela';
+        //   const to = '+250784824295';
+        //   const text = `${transa.type } transaction`;
+          nexmo.message.sendSms('Kabundege Andela', '+250784824295', `${transa.type } transaction`);
+        } catch (err) {}
     }
 
     static async reset(user,token){
         const Message = `
         <div  style="background: #581b98;padding:10px;border-radius:5px;width:80%">
             <p><span style="background:#46c3db;color:white;border-top-left-radius:3px;border-bottom-left-radius:3px;padding:5px;">To reset your Password </span>
-            <span style="background:white;border-top-right-radius:3px;border-bottom-right-radius:3px;padding:5px;color:#000"><a href="http://localhost:1999/reset.html?token=${token}">Click here</a><span></p>
+            <span style="background:white;border-top-right-radius:3px;border-bottom-right-radius:3px;padding:5px;color:#000"><a href="https://papel--andela.herokuapp.com/reset.html?token=${token}">Click here</a><span></p>
         </div>`;
 
         let transporter = nodemailer.createTransport({

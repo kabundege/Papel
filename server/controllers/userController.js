@@ -46,7 +46,7 @@ export default class userController {
         user: newUser,
       });
       return responseHandler.send(res);
-    }
+  }
 
   static async reset(req, res) {
     const {
@@ -61,6 +61,7 @@ export default class userController {
       responseHandler.error(400, new Error('Password example : aPassword123!'));
       return responseHandler.send(res);
     }
+    
     if (password != confirmPassword) {
       responseHandler.error(400, new Error('UnMaching Password'));
       return responseHandler.send(res);
@@ -83,7 +84,7 @@ export default class userController {
         NewPassword: password,
       });
       return responseHandler.send(res);
-    }
+  }
 
   static async email(req,res){
     const {email} = req.body;

@@ -15,7 +15,7 @@ const dash = async () =>{
         password: password,
         confirmPassword:confirm
     }
-    const res = await fetch('http://localhost:1999/api/v1/auth/signup',{
+    const res = await fetch('https://papel--andela.herokuapp.com/api/v1/auth/signup',{
       method: 'POST', 
       headers: {
         Accepted:'appication/json',
